@@ -1,0 +1,114 @@
+id,disease
+100,Varicella - Chickenpox
+101,Smallpox
+102,Rubella
+103,Congenital rubella
+104,E. coli O157:H7 infection
+105,HIV carrier/ AIDS
+106,Echinococcosis
+107,Diphtheria
+108,Botulism
+109,Brucellosis
+110,Giardiasis
+111,Anthrax
+112,Pneumonic Plague
+113,Plague- non pneumonic
+114,Acute Hepatitis A
+115,Acute Hepatitis B
+116,Acute Hepatitis C
+117,Acute viral hepatitis - other
+118,Encephalitis
+119,Meningitis - meningococcal
+120,Meningitis - Haemophilus influenzae b
+121,Meningitis - pneumococcal
+122,Acute viral meningitis
+123,Meningitis - unknown agent
+172,Poliomyelitis caused by wild-type poliovirus
+173,Poliomyelitis caused by vaccine derived poliovirus
+175,Pertussis
+176,Influenza caused by a new subtype
+177,Pandemic influenza
+178,Avian influenza
+179,Toxic shock syndrome
+180,Severe Acute Respiratory Syndrome (SARS)
+181,Food/Water borne infections
+182,Hospital (nosocomial) infections
+183,Death - Total (all causes)
+184,Death age < 1 (all causes)
+185,Death - Pneumonia - single cause (all ages)
+186,Death - Pneumonia - single cause (age < 1)
+187,Death - Pneumonia+other causes (all ages)
+188,Death - Pneumonia+other causes (age < 1)
+189,Death - Influenza (all ages)
+190,Death - Influenza (age < 1)
+191,Zika
+192,Congenital Zika
+193,AIDS
+194,HIV carrier
+195,Plague
+196,Ebola virus disease
+197,Marburg virus disease
+198,Lassa fever
+199,Other viral hemorrhagic fevers
+200,Poliomyelitis
+201,Death - Gastrointestinal dis.*
+202,Death - Gastrointestinal dis. (age < 1)*
+203,Death - Chemical poisoning - accidental
+204,Death - Chemical poisoning - intentional
+205,Death - Chemical poisoning - N.O.S.
+206,"Viral hemorrhagic fever (Ebola, Lassa, Marburg)"
+207,"Viral hemorrhagic fever (not including Ebola, Lassa, Marburg)"
+208,Perinatal strep B early onset
+209,Perinatal strep B late onset
+210,Meningococcal invasive infection*
+211,Meningitis - meningococcal*
+212,Congenital Syphilis*
+124,Meningitis - other
+125,Gonorrhea
+126,H. influenzae b invasive infection
+127,Meningococcal invasive infection
+128,Pneumococcal invasive infection
+129,Mumps
+130,Measles
+131,Tularemia
+132,Typhoid
+133,Murine typhus
+134,Cholera
+135,Non cholera vibrio infection
+136,Rabies
+137,Chlamydia trachomatis of the genital tract
+138,Lymphogranuloma venereum
+139,Listeriosis
+140,Visceral leishmaniasis
+141,Cutaneous leishmaniasis
+142,Leptospirosis
+143,Legionellosis
+144,Creutzfeldt-Jacob disease
+145,Malaria
+146,GAS Invasive Infection
+147,Perinatal streptococcal B early onset
+148,Perinatal streptococcal B late onset
+149,Salmonellosis of the gastrointestinal tract
+150,Syphilis - primary and secondary
+151,Syphilis - other
+152,Congenital Syphilis
+153,Paratyphoid fever
+154,Tetanus
+155,Leprosy
+156,Q fever
+157,Dangue fever
+158,Rift Valley fever
+159,Relapsing fever
+160,Spotted fever
+161,West Nile fever
+162,"Viral hemorrhagic fever: Ebola, Lassa, Marburg"
+163,"Viral hemorrhagic fever excluding Ebola, Lassa, Marburg"
+164,Yellow Fever
+165,Rheumatic fever
+166,Campylobacteriosis
+167,Criptosporidiosis
+168,Other rickettsial diseases
+169,Tuberculosis - active pulmonary
+170,Tuberculosis - extrapulmonary
+171,Shigellosis
+174,Acute flaccid paralysis (through 15)

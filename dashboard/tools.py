@@ -1,10 +1,18 @@
-from bokeh.models import HoverTool, RangeTool
+from bokeh.models import HoverTool, RangeTool, PanTool
 
-DEFAULT_TOOLS = 'pan,wheel_zoom,xbox_select,reset'
+DEFAULT_TOOLS = 'save,reset'
 
-def create_hover_tool():
-    pass
 
+def make_hover_tool():
+    hover = HoverTool(tooltips=[('Cases', '@total'),
+                                ('Cases Smoothed', '@total_smooth'),
+                                ('Date', '@date{%F}')],
+                      formatters={'date': 'datetime'},
+                      mode='vline')
+    return hover
+
+def make_pan_tool():
+    pan = PanTool()
 
 def make_range_tool(chart):
     ranger = RangeTool(x_range=chart.x_range)
