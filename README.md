@@ -1,2 +1,2 @@
 # epidemic
-epidemic.co.il
+[epidemic](epidemic.co.il)
