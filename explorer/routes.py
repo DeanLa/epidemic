@@ -9,6 +9,17 @@ from tornado.ioloop import IOLoop
 from .models import Disease, Report
 from dashboard.runner import bkapp
 
+
+# def bk_worker():
+#     server = Server({'/dashboard2': bkapp}, io_loop=IOLoop(),
+#                     allow_websocket_origin=["localhost:5000", "127.0.0.1:5000"])
+#     server.start()
+#     server.io_loop.start()
+#
+#
+# Thread(target=bk_worker).start()
+
+
 def init_app(app: Flask):
     @app.route('/index')
     @app.route('/')
@@ -17,17 +28,10 @@ def init_app(app: Flask):
         script = "Hello World"
         return render_template('index.html', script=script)
 
-    # def bk_worker():
-    #     server = Server({'/dashboard':bkapp}, io_loop=IOLoop(), allow_websocket_origin=["localhost:5000"])
-    #     server.start()
-    #     server.io_loop.start()
-    #
-    # Thread(target=bk_worker).start()
-
-
     @app.route('/show_disease')
     def give_me():
-        return 1
+        d = request.args.get('d')
+        return "1"
 
     @app.route('/d/<string:disease>/')
     def disease_by_name(disease):
@@ -60,8 +64,8 @@ def init_app(app: Flask):
 
     @app.route('/demo')
     def demo_chart():
-        return render_template('demo.html',chart_link='https://demo.bokehplots.com/apps/crossfilter')
-    
+        return render_template('demo.html', chart_link='https://demo.bokehplots.com/apps/crossfilter')
+
     @app.errorhandler(404)
     def not_found(error):
         return "Sorry This is a custom 404 <br> {}".format(error), 404

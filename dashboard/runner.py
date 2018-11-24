@@ -1,6 +1,5 @@
 import logging
 
-from bokeh.io import curdoc
 from bokeh.layouts import row, column, widgetbox
 from bokeh.models import ColumnDataSource
 from bokeh.models.widgets import Dropdown, RadioButtonGroup
@@ -13,6 +12,7 @@ from dashboard.tools import make_range_tool
 
 logger = logging.getLogger(__name__)
 
+
 def bkapp(doc):
     def update_plot(attrname, old_value, new_value):
         disease = disease_selector.value
@@ -24,22 +24,21 @@ def bkapp(doc):
         smooth_selector.label = str(smooth)
         doc.title = "Epidemic - {}".format(disease)
 
-
     # request
     args = doc.session_context.request.arguments
     get_param = lambda param, default: args.get(param, [bytes(str(default), encoding='utf')])[0].decode('utf-8')
-    disease = get_param('disease',DEFAULT_DISEASE)
-    smooth = get_param('smooth',2)
+    disease = get_param('disease', DEFAULT_DISEASE)
+    smooth = get_param('smooth', 2)
     ## Components
 
     # Widgets
     disease_selector = Dropdown(label=disease, value=disease, menu=list(zip(DISEASES, DISEASES)))
     smooth_selector = Dropdown(label=smooth, value=smooth, menu=[(str(i), str(i)) for i in range(1, 9)])
-    picker = RadioButtonGroup(labels=['Total Cases','Cases by Region'], width=300)
+    picker = RadioButtonGroup(labels=['Total Cases', 'Cases by Region'], width=300)
 
     # Sources
 
-    source = ColumnDataSource()# models.get_disease_data_by_name(disease,smooth)
+    source = ColumnDataSource()  # models.get_disease_data_by_name(disease,smooth)
     # Events
     disease_selector.on_change('value', update_plot)
     smooth_selector.on_change('value', update_plot)
@@ -55,4 +54,4 @@ def bkapp(doc):
 
     doc.add_root(row(charts_col, controls))
     doc.title = "Epidemic - {}".format(disease)
-    update_plot(None,None,None)
+    update_plot(None, None, None)
