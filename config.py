@@ -14,3 +14,6 @@ class Config:
 class DevConfig(Config):
     DEVELOPMENT = True
     DEBUG = True
+
+class ProdConfig(Config):
+    pass
