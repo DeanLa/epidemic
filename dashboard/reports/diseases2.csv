@@ -1,0 +1,114 @@
+id,disease,heb
+100,Varicella - Chickenpox,אבעבועות רוח
+101,Smallpox,אבעבועות שחורות
+102,Rubella,אדמת
+103,Congenital rubella,אדמת מלידה
+104,E. coli O157:H7 infection,"זיהום ע""י א. קולי O157:H7"
+105,HIV carrier/ AIDS,נשא HIV/ איידס
+106,Echinococcosis,אכינוקוקוזיס
+107,Diphtheria,אסכרה
+108,Botulism,בוטוליזם
+109,Brucellosis,ברוצלוזיס
+110,Giardiasis,ג'יארדיאזיס
+111,Anthrax,גחלת
+112,Pneumonic Plague,דבר נשימתי
+113,Plague- non pneumonic,דבר שאינו נשימתי
+114,Acute Hepatitis A,דלקת כבד נגיפית A
+115,Acute Hepatitis B,דלקת כבד נגיפית B
+116,Acute Hepatitis C,דלקת כבד נגיפית C
+117,Acute viral hepatitis - other,דלקת כבד נגיפית אחרת
+118,Encephalitis,דלקת מח חדה
+119,Meningitis - meningococcal,דלקת עוצבה חדה מנינגוקוקית
+120,Meningitis - Haemophilus influenzae b,"דלקת עוצבה חדה ע""י Hib"
+121,Meningitis - pneumococcal,דלקת עוצבה חדה פנוימוקוקית
+122,Acute viral meningitis,דלקת עוצבה נגיפית
+123,Meningitis - unknown agent,דלקת עוצבה - מחולל לא ידוע
+124,Meningitis - other,דלקת עוצבה חדה אחרת
+125,Gonorrhea,זיבה
+126,H. influenzae b invasive infection,"זיהום פולשני ע""י Hib"
+129,Mumps,חזרת
+127,Meningococcal invasive infection,"זיהום פולשני ע""י מנינגוקוק"
+128,Pneumococcal invasive infection,"זיהום פולשני ע""י פנוימוקוק"
+130,Measles,חצבת
+131,Tularemia,טולרמיה
+132,Typhoid,טיפואיד
+133,Murine typhus,טיפוס מוריני
+134,Cholera,כולירה
+135,Non cholera vibrio infection,ויבריו שאינו כולירה
+136,Rabies,כלבת
+137,Chlamydia trachomatis of the genital tract,כלמידיה טרכומטיס בדרכי המין
+138,Lymphogranuloma venereum,לימפוגרנולומה ונראום
+139,Listeriosis,ליסטריוזיס
+140,Visceral leishmaniasis,לישמניאזיס - קלה אזר
+141,Cutaneous leishmaniasis,לישמניאזיס של העור
+142,Leptospirosis,לפטוספירוזיס
+143,Legionellosis,מחלת הלגיונרים
+144,Creutzfeldt-Jacob disease,מחלת קרויצפלדט-יעקוב
+145,Malaria,מלריה
+146,GAS Invasive Infection,סטרפטוקוקים מקבוצה A זיהום פולשני
+147,Perinatal streptococcal B early onset,סטרפטוקוק B סב-לידתי - התחלה מוקדמת
+148,Perinatal streptococcal B late onset,סטרפטוקוק B סב-לידתי - התחלה מאוחרת
+149,Salmonellosis of the gastrointestinal tract,סלמונלוזיס של דרכי העיכול
+150,Syphilis - primary and secondary,עגבת ראשונית ושניונית
+151,Syphilis - other,עגבת אחרת ומאוחרת
+152,Congenital Syphilis,עגבת מלידה
+153,Paratyphoid fever,פאראטיפואיד
+154,Tetanus,צפדת
+155,Leprosy,צרעת
+156,Q fever,קדחת Q
+157,Dangue fever,קדחת דנגי
+158,Rift Valley fever,קדחת השקע האפריקני
+159,Relapsing fever,קדחת חוזרת
+160,Spotted fever,קדחת כתמים
+161,West Nile fever,קדחת מערב הנילוס
+162,"Viral hemorrhagic fever: Ebola, Lassa, Marburg","קדחת נגיפית המורגית: אבולה, לאסה, מרבורג"
+163,"Viral hemorrhagic fever excluding Ebola, Lassa, Marburg","קדחת נגיפית המורגית למעט אבולה, לאסה, מרבורג"
+164,Yellow Fever,קדחת צהובה
+165,Rheumatic fever,קדחת שיגרון
+166,Campylobacteriosis,קמפילובקטריוזיס
+167,Criptosporidiosis,קריפטוספורידיוזיס
+168,Other rickettsial diseases,ריקטסיוזות אחרות
+169,Tuberculosis - active pulmonary,שחפת ריאות פעילה
+170,Tuberculosis - extrapulmonary,שחפת מחוץ לריאות
+171,Shigellosis,שיגלוזיס
+172,Poliomyelitis caused by wild-type poliovirus,"שיתוק ילדים הנגרם ע""י זן פרא של נגיף הפוליו"
+173,Poliomyelitis caused by vaccine derived poliovirus,"שיתוק ילדים הנגרם ע""י נגיף שמקורו בתרכיב חיסון"
+174,Acute flaccid paralysis (through 15),שיתוק רפה חד (עד גיל 15 ועד בכלל)
+175,Pertussis,שעלת
+176,Influenza caused by a new subtype,"שפעת הנגרמת ע""י זן חדש"
+177,Pandemic influenza,שפעת פנדמית
+178,Avian influenza,שפעת העופות
+179,Toxic shock syndrome,תסמונת ההלם הטוקסי
+180,Severe Acute Respiratory Syndrome (SARS),תסמונת נשימתית חמורה חדה
+181,Food/Water borne infections,הרעלת מזון/מים
+182,Hospital (nosocomial) infections,זיהומים בבית חולים
+183,Death - Total (all causes),"סה""כ פטירות - כל הסיבות"
+184,Death age < 1 (all causes),"סה""כ פטירות - כל הסיבות - גיל < 1"
+185,Death - Pneumonia - single cause (all ages),פטירות מדלקת ריאות - סיבה יחידה
+186,Death - Pneumonia - single cause (age < 1),פטירות מדלקת ריאות - סיבה יחידה - גיל < 1
+187,Death - Pneumonia+other causes (all ages),פטירות מדלקת ריאות עם סיבות אחרות
+188,Death - Pneumonia+other causes (age < 1),פטירות מדלקת ריאות עם סיבות אחרות - גיל < 1
+189,Death - Influenza (all ages),קדחת דנגי
+190,Death - Influenza (age < 1),קדחת דנגי
+191,Zika,זיקה
+192,Congenital Zika,זיקה מלידה
+193,AIDS,דלקת עוצבה נגיפית
+194,HIV carrier,"זיהום פולשני ע""י Hib"
+195,Plague,שעלת
+196,Ebola virus disease,"זיהום ע""י א. קולי O157:H7"
+197,Marburg virus disease,מלריה
+198,Lassa fever,"שפעת הנגרמת ע""י זן חדש"
+199,Other viral hemorrhagic fevers,ריקטסיוזות אחרות
+200,Poliomyelitis,דבר נשימתי
+201,Death - Gastrointestinal dis.*,קדחת דנגי
+202,Death - Gastrointestinal dis. (age < 1)*,קדחת דנגי
+203,Death - Chemical poisoning - accidental,קדחת דנגי
+204,Death - Chemical poisoning - intentional,קדחת דנגי
+205,Death - Chemical poisoning - N.O.S.,קדחת דנגי
+206,"Viral hemorrhagic fever (Ebola, Lassa, Marburg)",אבעבועות רוח
+207,"Viral hemorrhagic fever (not including Ebola, Lassa, Marburg)",אבעבועות רוח
+208,Perinatal strep B early onset,פאראטיפואיד
+209,Perinatal strep B late onset,פאראטיפואיד
+210,Meningococcal invasive infection*,"זיהום פולשני ע""י מנינגוקוק"
+211,Meningitis - meningococcal*,דלקת עוצבה חדה מנינגוקוקית
+212,Congenital Syphilis*,עגבת מלידה

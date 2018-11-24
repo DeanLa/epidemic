@@ -1,13 +1,6 @@
-import os
-from threading import Thread
-
-from bokeh.embed import server_document
-from bokeh.server.server import Server
 from flask import Flask, render_template, request
-from tornado.ioloop import IOLoop
 
 from .models import Disease, Report
-from dashboard.runner import bkapp
 
 
 # def bk_worker():
