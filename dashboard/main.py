@@ -26,7 +26,6 @@ def update_plot(attrname, old_value, new_value):
     disease_selector.label = disease
     heb = models.get_heb_name(disease)
     heb_name.text = f'<h1>{heb}</h1'
-    l.line.legend = f'Smoothed {smooth} weeks'
     curdoc().title = "Epidemic - {}".format(disease)
 
 
@@ -57,7 +56,7 @@ ranger = make_range_tool(chart)
 chart_range = make_range_plot(source, ranger)
 
 #
-controls = column(widgetbox(disease_selector, smooth_selector, heb_name), height=280)
+controls = column(widgetbox(disease_selector, smooth_selector, heb_name), height=280, name='dean')
 charts_col = column(chart, chart_range, width=1024)
 
 curdoc().add_root(row(charts_col, controls))

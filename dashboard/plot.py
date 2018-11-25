@@ -20,7 +20,6 @@ def make_plot(source, disease):
     chart.title.text = disease
     chart.line('date', 'total', source=source, line_width=0.5, line_dash='dashed', legend='Cases')
     chart.line('date', 'total_smooth', source=source, line_width=2, legend='Smoothed')
-    chart.sizing_mode = "scale_both"
     hover = tools.make_hover_tool()
     chart.add_tools(hover)
     chart.legend.location='top_left'
