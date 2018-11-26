@@ -8,11 +8,11 @@ from bokeh.layouts import row, column, widgetbox
 from bokeh.models import ColumnDataSource, Div, Slider
 from bokeh.models.widgets import Dropdown, RadioButtonGroup
 
-from dashboard import models
-from dashboard.config import DEFAULT_DISEASE
-from dashboard.models import DISEASES
-from dashboard.plot import make_plot, make_range_plot
-from dashboard.tools import make_range_tool
+from . import models
+from .config import DEFAULT_DISEASE
+from .models import DISEASES
+from .plot import make_plot, make_range_plot
+from .tools import make_range_tool
 
 logger = logging.getLogger(__name__)
 

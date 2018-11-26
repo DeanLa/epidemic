@@ -2,7 +2,7 @@ import os
 from functools import lru_cache
 import pandas as pd
 from bokeh.models import ColumnDataSource
-from dashboard.config import DISEASE_MIN_CASES
+from .config import DISEASE_MIN_CASES
 import sqlalchemy as sa
 
 DATA_DIR = os.path.join(os.path.dirname(__file__), 'reports')

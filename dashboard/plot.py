@@ -2,9 +2,9 @@ import pandas as pd
 from bokeh.plotting import figure
 from bokeh.models import Range1d
 
-from dashboard import tools
-from dashboard.config import WIDTH
-from dashboard.tools import DEFAULT_TOOLS
+from . import tools
+from .config import WIDTH
+from .tools import DEFAULT_TOOLS
 
 
 def make_plot(source, disease):
