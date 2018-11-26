@@ -30,7 +30,7 @@ def make_plot(source, disease):
 
 def make_range_plot(source, range_tool):
     chart_range = figure(title=None,
-                         plot_height=150,
+                         plot_height=100,
                          plot_width=WIDTH,
                          y_axis_type=None,
                          sizing_mode="stretch_both",

@@ -25,7 +25,7 @@ def update_plot(attrname, old_value, new_value):
     chart.title.text = disease
     disease_selector.label = disease
     heb = models.get_heb_name(disease)
-    heb_name.text = f'<h1>{heb}</h1'
+    heb_name.text = f'<h2>{heb}</h2>'
     curdoc().title = "Epidemic - {}".format(disease)
 
 
@@ -40,7 +40,7 @@ smooth = get_param('smooth', 2)
 disease_selector = Dropdown(label=disease, value=disease, menu=list(zip(DISEASES, DISEASES)))
 # smooth_selector = Slider(title=smooth, value=smooth, menu=[(str(i), str(i)) for i in range(1, 9)])
 smooth_selector = Slider(title='Smoothing', value=int(smooth), start=1, step=1,end=8)
-heb_name = Div(text=f'<h1>{disease}</h1')
+heb_name = Div()
 picker = RadioButtonGroup(labels=['Total Cases', 'Cases by Region'], width=300)
 
 # Sources
@@ -57,7 +57,7 @@ chart_range = make_range_plot(source, ranger)
 
 #
 controls = column(widgetbox(disease_selector, smooth_selector, heb_name), height=280, name='dean')
-charts_col = column(chart, chart_range, width=1024)
+charts_col = column(chart_range, chart, width=1024)
 
 curdoc().add_root(row(charts_col, controls))
 curdoc().title = "Epidemic - {}".format(disease)
