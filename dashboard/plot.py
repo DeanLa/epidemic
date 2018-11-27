@@ -1,28 +1,23 @@
 import pandas as pd
 from bokeh.plotting import figure
-from bokeh.models import Range1d
 
 from dashboard import tools
-from dashboard.config import WIDTH
+from dashboard.models import get_heb_name
 from dashboard.tools import DEFAULT_TOOLS
 
 
 def make_plot(source, disease):
     now = pd.Timestamp('now', tz='UTC')
     chart = figure(
-        # plot_width=WIDTH,
-        # plot_height=500,
         tools=DEFAULT_TOOLS,
         x_axis_type='datetime',
         x_range=(pd.Timestamp('2018-1-1'), now.date()),
-        name="main_plot",
-        toolbar_location='below',
+        toolbar_location='above',
     )
     chart.toolbar.logo=None
     chart.background_fill_alpha=1
     chart.css_classes = ['bk-h-100']
-    chart.title.text = disease
-    # chart.sizing_mode="scale_both"
+    chart.title.text = disease + ' | ' + get_heb_name(disease)
     l1 = chart.line('date', 'total', source=source, line_width=0.5, line_dash='dashed', legend='Cases')
     l2 = chart.line('date', 'total_smooth', source=source, line_width=2, legend='Smoothed')
     l3 = chart.line('date', 'total_smooth', source=source, line_width=0, line_alpha=0)

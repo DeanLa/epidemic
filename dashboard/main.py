@@ -44,7 +44,7 @@ smooth = int(get_param('smooth', 2))
 disease_selector = Dropdown(label=disease, value=disease, menu=list(zip(DISEASES, DISEASES)))
 # smooth_selector = Slider(title=smooth, value=smooth, menu=[(str(i), str(i)) for i in range(1, 9)])
 smooth_selector = Slider(title='Smoothing', value=int(smooth), start=1, step=1, end=8)
-heb_name = Div(text=f'<h2>{heb}</h2>',css_classes=['heb'])
+heb_name = Div(text=f'',css_classes=['heb'])
 picker = RadioButtonGroup(labels=['Total Cases', 'Cases by Region'], width=300)
 
 js_history = CustomJS(args={'ds':disease_selector, 'ss':smooth_selector}, code='''
