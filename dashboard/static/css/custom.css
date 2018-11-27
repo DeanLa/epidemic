@@ -1,7 +1,15 @@
-h2 {
+.heb {
     text-align: right;
 }
 
 .spacer {
     margin-bottom: 20px;
+}
+
+.ranger {
+    height: 20%;
+}
+
+.main-chart {
+    height: 80%;
 }

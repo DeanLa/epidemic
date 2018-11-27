@@ -12,12 +12,13 @@ def make_plot(source, disease):
     chart = figure(
         plot_width=WIDTH,
         plot_height=600,
-        sizing_mode="scale_width",
         tools=DEFAULT_TOOLS,
         x_axis_type='datetime',
         x_range=(pd.Timestamp('2018-1-1'), now.date()),
+        name="main_plot"
     )
     chart.title.text = disease
+    # chart.sizing_mode="scale_both"
     chart.line('date', 'total', source=source, line_width=0.5, line_dash='dashed', legend='Cases')
     chart.line('date', 'total_smooth', source=source, line_width=2, legend='Smoothed')
     hover = tools.make_hover_tool()
@@ -30,10 +31,10 @@ def make_plot(source, disease):
 
 def make_range_plot(source, range_tool):
     chart_range = figure(title=None,
-                         plot_height=100,
-                         plot_width=WIDTH,
+                         # plot_height=100,
+                         # plot_width=WIDTH,
                          y_axis_type=None,
-                         sizing_mode="stretch_both",
+                         # sizing_mode="stretch_both",
                          x_axis_type='datetime',
                          tools='', toolbar_location=None, background_fill_color="#efefef")
     chart_range.line('date', 'total', source=source)

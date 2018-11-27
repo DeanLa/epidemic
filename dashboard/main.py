@@ -44,7 +44,7 @@ smooth = int(get_param('smooth', 2))
 disease_selector = Dropdown(label=disease, value=disease, menu=list(zip(DISEASES, DISEASES)))
 # smooth_selector = Slider(title=smooth, value=smooth, menu=[(str(i), str(i)) for i in range(1, 9)])
 smooth_selector = Slider(title='Smoothing', value=int(smooth), start=1, step=1, end=8)
-heb_name = Div(text=f'<h2>{heb}</h2>')
+heb_name = Div(text=f'<h2>{heb}</h2>',css_classes=['heb'])
 picker = RadioButtonGroup(labels=['Total Cases', 'Cases by Region'], width=300)
 
 js_history = CustomJS(args={'ds':disease_selector, 'ss':smooth_selector}, code='''
@@ -69,10 +69,13 @@ ranger = make_range_tool(chart)
 chart_range = make_range_plot(source, ranger)
 
 #
-controls = column(widgetbox(disease_selector, smooth_selector, heb_name), height=280, name='dean')
-charts_col = column(chart_range, chart, width=1024)
+controls = column(widgetbox(disease_selector, smooth_selector, heb_name), name='dean')
+charts_col = column(chart_range, chart)
 
-curdoc().add_root(row(charts_col, controls))
+for element in [chart_range, chart, controls]:
+    element.sizing_mode = "scale_width"
+    curdoc().add_root(element)
+# curdoc().add_root(row(charts_col, controls, sizing_mode='scale_both'))
 curdoc().title = "Epidemic"
 if 'disease' in args.keys():
     curdoc().title = "Epidemic - {}".format(disease)
