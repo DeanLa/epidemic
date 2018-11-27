@@ -8,7 +8,9 @@ def make_hover_tool():
                                 ('Cases Smoothed', '@total_smooth'),
                                 ('Date', '@date{%F}')],
                       formatters={'date': 'datetime'},
-                      mode='vline')
+                      mode='vline',
+                      line_policy='nearest'
+                      )
     return hover
 
 def make_pan_tool():

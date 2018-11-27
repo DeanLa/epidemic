@@ -23,12 +23,13 @@ def make_plot(source, disease):
     chart.css_classes = ['bk-h-100']
     chart.title.text = disease
     # chart.sizing_mode="scale_both"
-    chart.line('date', 'total', source=source, line_width=0.5, line_dash='dashed', legend='Cases')
-    chart.line('date', 'total_smooth', source=source, line_width=2, legend='Smoothed')
+    l1 = chart.line('date', 'total', source=source, line_width=0.5, line_dash='dashed', legend='Cases')
+    l2 = chart.line('date', 'total_smooth', source=source, line_width=2, legend='Smoothed')
     hover = tools.make_hover_tool()
     chart.add_tools(hover)
+    hover.renderers = [l2]
     chart.legend.location='top_left'
-    chart.legend.click_policy='hide'
+    # chart.legend.click_policy='hide'
 
     return chart
 
