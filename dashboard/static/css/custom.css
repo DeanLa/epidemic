@@ -37,3 +37,7 @@ html, body {
     width: 100% !important;
     height: auto !important;
 }
+
+.controls-col .bk-root, .controls-col .bk-widget-box{
+    width: 100% !important;
+}
