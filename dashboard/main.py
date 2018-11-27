@@ -5,7 +5,7 @@ import dotenv
 dotenv.load_dotenv()
 from bokeh.io import curdoc
 from bokeh.layouts import row, column, widgetbox
-from bokeh.models import ColumnDataSource, Div, Slider
+from bokeh.models import Div, Slider, CustomJS
 from bokeh.models.widgets import Dropdown, RadioButtonGroup
 
 from dashboard import models
@@ -17,6 +17,7 @@ from dashboard.tools import make_range_tool
 logger = logging.getLogger(__name__)
 
 
+
 def update_plot(attrname, old_value, new_value):
     disease = disease_selector.value
     smooth = int(smooth_selector.value)
@@ -26,6 +27,8 @@ def update_plot(attrname, old_value, new_value):
     disease_selector.label = disease
     heb = models.get_heb_name(disease)
     heb_name.text = f'<h2>{heb}</h2>'
+
+
     curdoc().title = "Epidemic - {}".format(disease)
 
 
@@ -33,22 +36,32 @@ def update_plot(attrname, old_value, new_value):
 args = curdoc().session_context.request.arguments
 get_param = lambda param, default: args.get(param, [bytes(str(default), encoding='utf')])[0].decode('utf-8')
 disease = get_param('disease', DEFAULT_DISEASE)
-smooth = get_param('smooth', 2)
+heb = models.get_heb_name(disease)
+smooth = int(get_param('smooth', 2))
 ## Components
 
 # Widgets
 disease_selector = Dropdown(label=disease, value=disease, menu=list(zip(DISEASES, DISEASES)))
 # smooth_selector = Slider(title=smooth, value=smooth, menu=[(str(i), str(i)) for i in range(1, 9)])
-smooth_selector = Slider(title='Smoothing', value=int(smooth), start=1, step=1,end=8)
-heb_name = Div()
+smooth_selector = Slider(title='Smoothing', value=int(smooth), start=1, step=1, end=8)
+heb_name = Div(text=f'<h2>{heb}</h2>')
 picker = RadioButtonGroup(labels=['Total Cases', 'Cases by Region'], width=300)
+
+js_history = CustomJS(args={'ds':disease_selector, 'ss':smooth_selector}, code='''
+    var d=ds.value;
+    var s=ss.value;
+    history.pushState({},
+     'Epidemic  - ' + d,
+      '/dashboard?disease=' + d + '&smooth='+s)
+''')
 
 # Sources
 
-source = ColumnDataSource()  # models.get_disease_data_by_name(disease,smooth)
+source = models.get_disease_totals_by_name(disease, smooth)
 # Events
-disease_selector.on_change('value', update_plot)
-smooth_selector.on_change('value', update_plot)
+for selector in [disease_selector,smooth_selector]:
+    selector.on_change('value', update_plot)
+    selector.js_on_change('value', js_history)
 
 # Figures
 chart = make_plot(source, disease)
@@ -60,5 +73,7 @@ controls = column(widgetbox(disease_selector, smooth_selector, heb_name), height
 charts_col = column(chart_range, chart, width=1024)
 
 curdoc().add_root(row(charts_col, controls))
-curdoc().title = "Epidemic - {}".format(disease)
-update_plot(None, None, None)
+curdoc().title = "Epidemic"
+if 'disease' in args.keys():
+    curdoc().title = "Epidemic - {}".format(disease)
+    update_plot(None, None, None)
