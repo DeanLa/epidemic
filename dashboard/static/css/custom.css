@@ -25,12 +25,10 @@ html, body {
 .charts-col {
     height: 90vh;
     overflow: auto;
-
-    background-color: forestgreen;
 }
 
 #controls {
-    height: 160px;
+    /*height: 160px;*/
 }
 
 

@@ -16,9 +16,10 @@ def make_plot(source, disease):
         x_axis_type='datetime',
         x_range=(pd.Timestamp('2018-1-1'), now.date()),
         name="main_plot",
-        toolbar_location='below'
+        toolbar_location='below',
     )
-    chart.background_fill_alpha=0.5
+    chart.toolbar.logo=None
+    chart.background_fill_alpha=1
     chart.css_classes = ['bk-h-100']
     chart.title.text = disease
     # chart.sizing_mode="scale_both"
@@ -34,13 +35,11 @@ def make_plot(source, disease):
 
 def make_range_plot(source, range_tool):
     chart_range = figure(title=None,
-                         # plot_height=WIDTH*1,
-                         # plot_width=WIDTH*10,
                          y_axis_type=None,
-                         # sizing_mode="stretch_both",
                          x_axis_type='datetime',
                          tools='', toolbar_location=None,
-                         background_fill_color="#efefef")
+                         background_fill_color="#efefef",
+                         )
     chart_range.css_classes = ['bk-h-100']
     chart_range.line('date', 'total', source=source)
     chart_range.ygrid.grid_line_color = None

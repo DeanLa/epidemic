@@ -1,6 +1,6 @@
 from bokeh.models import HoverTool, RangeTool, PanTool
 
-DEFAULT_TOOLS = 'save,reset'
+DEFAULT_TOOLS = 'save'
 
 
 def make_hover_tool():
