@@ -70,6 +70,7 @@ chart_range = make_range_plot(source, ranger)
 
 #
 controls = column(widgetbox(disease_selector, smooth_selector, heb_name), name='dean')
+controls.css_classes = ['cbk-controls']
 charts_col = column(chart_range, chart)
 
 for element in [chart_range, chart, controls]:

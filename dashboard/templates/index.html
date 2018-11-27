@@ -51,18 +51,23 @@
     <div class="spacer"></div>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-3 order-xs-first order-md-2 main-colt">
+            <div class="col-sm-3 col-12 order-1 order-sm-2">
                 <div class="row" id="controls">
                     {{ embed(roots[2]) }}
                 </div>
             </div>
-            <div class="col-md-9 order-xs-2 order-md-1 main-col">
+            <div class="col-sm-9 col-12 order-2 order-sm-1 charts-col">
+                <div class="row  main-chart">
+                    <div class="col-12">
+                        {{ embed(roots[1]) }}
+                    </div>
+                </div>
                 <div class="row ranger">
-                    {{ embed(roots[0]) }}
+                    <div class="col-12">
+                        {{ embed(roots[0]) }}
+                    </div>
                 </div>
-                <div class="row main-chart">
-                    {{ embed(roots[1]) }}
-                </div>
+
             </div>
         </div>
     </div>
