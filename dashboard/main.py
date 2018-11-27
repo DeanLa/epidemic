@@ -23,14 +23,14 @@ def update_plot(attrname, old_value, new_value):
     smooth = int(smooth_selector.value)
     src = models.get_disease_totals_by_name(disease, smooth)
     source.data.update(src.data)
-    chart.title.text = disease
-    disease_selector.label = disease
     heb = models.get_heb_name(disease)
-    heb_name.text = f'<h2>{heb}</h2>'
+    chart.title.text = disease + ' | ' + heb
+    disease_selector.label = disease
+    heb_name.text = f'<h2></h2>'
 
 
     curdoc().title = "Epidemic - {}".format(disease)
-
+    curdoc().template_variables.update(disease=disease)
 
 # request
 args = curdoc().session_context.request.arguments
