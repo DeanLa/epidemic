@@ -25,11 +25,12 @@ def make_plot(source, disease):
     # chart.sizing_mode="scale_both"
     l1 = chart.line('date', 'total', source=source, line_width=0.5, line_dash='dashed', legend='Cases')
     l2 = chart.line('date', 'total_smooth', source=source, line_width=2, legend='Smoothed')
+    l3 = chart.line('date', 'total_smooth', source=source, line_width=0, line_alpha=0)
     hover = tools.make_hover_tool()
     chart.add_tools(hover)
-    hover.renderers = [l2]
+    hover.renderers = [l3]
     chart.legend.location='top_left'
-    # chart.legend.click_policy='hide'
+    chart.legend.click_policy='hide'
 
     return chart
 
