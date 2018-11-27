@@ -73,7 +73,8 @@ controls = column(widgetbox(disease_selector, smooth_selector, heb_name), name='
 charts_col = column(chart_range, chart)
 
 for element in [chart_range, chart, controls]:
-    element.sizing_mode = "scale_width"
+    element.sizing_mode = "stretch_both"
+    element.sizing_mode = "scale_both"
     curdoc().add_root(element)
 # curdoc().add_root(row(charts_col, controls, sizing_mode='scale_both'))
 curdoc().title = "Epidemic"

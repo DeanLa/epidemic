@@ -3,13 +3,45 @@
 }
 
 .spacer {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .ranger {
+    min-height: 120px;
     height: 20%;
+    /*background-color: indianred;*/
 }
 
 .main-chart {
+    /*min-height: 600px;*/
     height: 80%;
+    /*background-color: steelblue;*/
+}
+
+.main-col {
+    height: 90vh;
+    overflow: auto;
+
+    background-color: forestgreen;
+}
+/*#controls {*/
+    /*overflow:;*/
+/*}*/
+.container-fluid {
+    overflow: auto;
+    height: 100%;
+    /*display: flex;*/
+    /*flex-direction: row;*/
+    width: 95%
+}
+
+/*.bk-h-100 {*/
+/*height: 100%;*/
+/*}*/
+/*.container {*/
+/*height: 100%;*/
+/*}*/
+
+html, body {
+    height: 100%;
 }
