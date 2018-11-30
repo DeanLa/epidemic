@@ -41,5 +41,5 @@ def disease_information(disease):
     if info is not None:
         html+=f'<p class="heb">{info}</p>'
     if wiki is not None:
-        html+=f'<a href="{wiki}">עוד מידע בויקיפדיה</a>'
+        html+=f'<a href="{wiki}" class="heb">מידע נוסף</a>'
     return html
