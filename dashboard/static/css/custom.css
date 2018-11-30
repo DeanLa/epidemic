@@ -4,6 +4,8 @@ html, body {
 
 .heb {
     text-align: right;
+    direction: rtl;
+    unicode-bidi: embed;
 }
 
 .spacer {
@@ -29,8 +31,8 @@ html, body {
 }
 
 .charts-col {
-    height: 90vh;
-    overflow: auto;
+    /*height: 90vh;*/
+    /*overflow: auto;*/
 }
 
 #controls {
