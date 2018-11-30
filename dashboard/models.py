@@ -61,11 +61,38 @@ def get_disease_totals_by_id(id_, smooth=2):
            .assign(total_smooth=lambda x: x.total.rolling(smooth).mean())
            )
 
-    cdr = ColumnDataSource(data=ret)
-    return cdr
+    cds = ColumnDataSource(data=ret)
+    return cds
+
+
+def get_disease_sums_by_name(name):
+    name = normalize_name(name)
+    id_ = disease_dict[name]['id']
+    return get_disease_sums_by_id(id_)
+
+
+def get_disease_sums_by_id(id_):
+    df = (_get_disease_sums(id_)
+          .rename(columns=lambda x:x.replace('_',' ').capitalize()))
+
+    cds = ColumnDataSource(data=df)
+    return cds
 
 
 @lru_cache(maxsize=16)
 def _get_disease_totals(id_):
     df = pd.read_sql(f'select date, disease_id, total from reports where disease_id={id_}', conn)
     return df
+
+
+@lru_cache(maxsize=16)
+def _get_disease_sums(id_):
+    cols = ['afula', 'akko', 'ashqelon', 'beer_sheva', 'hasharon', 'hadera', 'haifa', 'jerusalem', 'kinneret',
+            'nazareth', 'petach_tiqwa', 'ramla', 'rehovot', 'tel_aviv', 'zefat', 'idf', 'total']
+    sum_cols = [f'sum ({col}) as {col}' for col in cols]
+    q = f'''select year, {','.join(sum_cols)}
+    from reports
+    where disease_id={id_}
+    group by year
+    order by year;'''
+    return pd.read_sql(q, conn)
