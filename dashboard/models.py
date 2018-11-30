@@ -65,6 +65,12 @@ def get_disease_totals_by_id(id_, smooth=2):
     return cds
 
 
+@lru_cache(maxsize=16)
+def _get_disease_totals(id_):
+    df = pd.read_sql(f'select date, disease_id, total from reports where disease_id={id_}', conn)
+    return df
+
+
 def get_disease_sums_by_name(name):
     name = normalize_name(name)
     id_ = disease_dict[name]['id']
@@ -73,16 +79,10 @@ def get_disease_sums_by_name(name):
 
 def get_disease_sums_by_id(id_):
     df = (_get_disease_sums(id_)
-          .rename(columns=lambda x:x.replace('_',' ').capitalize()))
+          .rename(columns=lambda x: x.replace('_', ' ').capitalize()))
 
     cds = ColumnDataSource(data=df)
     return cds
-
-
-@lru_cache(maxsize=16)
-def _get_disease_totals(id_):
-    df = pd.read_sql(f'select date, disease_id, total from reports where disease_id={id_}', conn)
-    return df
 
 
 @lru_cache(maxsize=16)
@@ -95,4 +95,23 @@ def _get_disease_sums(id_):
     where disease_id={id_}
     group by year
     order by year;'''
+    return pd.read_sql(q, conn)
+
+
+def get_heb_info_by_name(name):
+    name = normalize_name(name)
+    id_ = disease_dict[name]['id']
+    return get_heb_info_by_id(id_)
+
+
+def get_heb_info_by_id(id_):
+    df = _get_heb_info(id_)
+    info = df.info_heb.values[0]
+    wiki = df.wiki_heb.values[0]
+    return info, wiki
+
+
+@lru_cache(maxsize=16)
+def _get_heb_info(id_):
+    q = f'''select info_heb, wiki_heb from diseases where id = {id_}'''
     return pd.read_sql(q, conn)

@@ -10,22 +10,22 @@ html, body {
     margin-bottom: 10px;
 }
 
-.ranger {
+#main-chart {
+    /*min-height: 600px;*/
+    height: 70%;
+    /*background-color: steelblue;*/
+}
+
+#ranger {
     min-height: 120px;
     height: 20%;
     /*background-color: indianred;*/
 }
 
-.bars {
+#bars {
     min-height: 120px;
-    height: 40%;
+    height: 50%;
     /*background-color: indianred;*/
-}
-
-.main-chart {
-    /*min-height: 600px;*/
-    height: 80%;
-    /*background-color: steelblue;*/
 }
 
 .charts-col {
@@ -37,13 +37,12 @@ html, body {
     /*height: 160px;*/
 }
 
-
 .controls-col .bk-root > div {
     position: relative !important;
     width: 100% !important;
     height: auto !important;
 }
 
-.controls-col .bk-root, .controls-col .bk-widget-box{
+.controls-col .bk-root, .controls-col .bk-widget-box {
     width: 100% !important;
 }

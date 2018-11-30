@@ -56,6 +56,7 @@ def make_plot(source, disease):
     p.background_fill_alpha = 1
     p.css_classes = ['bk-h-100']
     p.title.text = disease + ' | ' + get_heb_name(disease)
+    p.title.text_font_size = '18pt'
     l1 = p.line('date', 'total', source=source, line_width=0.5, line_dash='dashed', legend='Cases')
     l2 = p.line('date', 'total_smooth', source=source, line_width=2, legend='Smoothed')
     l3 = p.line('date', 'total_smooth', source=source, line_width=0, line_alpha=0)
@@ -84,7 +85,7 @@ def make_range_plot(source, range_tool):
     return p
 
 
-def make_total_bars(source):
+def make_total_bars(source, disease):
     p = figure(toolbar_location=None,
                tools='hover',
                tooltips='$name: @$name Cases (of @Total)',
@@ -93,5 +94,5 @@ def make_total_bars(source):
     p.vbar_stack(regions, x='Year', width=0.9, source=source, color=COLORS[:len(regions)])
 
     p.xgrid.grid_line_color = None
-    p.title.text = 'Annual amount by regions for {disease}'
+    p.title.text = f'Annual amount by regions for {disease}'
     return p

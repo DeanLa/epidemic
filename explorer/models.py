@@ -26,6 +26,11 @@ class Disease(BaseModel):
     __tablename__ = 'diseases'
     id = db.Column(db.Integer, primary_key=True)
     disease = db.Column(db.String)
+    disease_heb = db.Column(db.String)
+    info = db.Column(db.String)
+    info_heb = db.Column(db.String)
+    wiki = db.Column(db.String)
+    wiki_heb = db.Column(db.String)
     reports = db.relationship('Report', backref='reports', lazy=True)
 
     def __repr__(self):

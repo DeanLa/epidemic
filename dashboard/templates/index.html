@@ -18,6 +18,8 @@
             integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="dashboard/static/css/custom.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+{#    Open Graph#}
     <meta property="og:image"
           content="https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Measles_virus.JPG/220px-Measles_virus.JPG">
     <meta property="og:url" content="http://www.epidemic.co.il">
@@ -60,22 +62,21 @@
         <div class="row">
             <div class="col-sm-3 col-12 order-1 order-sm-2 controls-col">
                 <div class="row" id="controls">
-                    <a href="#" data-toggle="tooltip" title="Select Disease">Choose Disease</a>
                     {{ embed(roots[0]) }}
                 </div>
             </div>
             <div class="col-sm-9 col-12 order-2 order-sm-1 charts-col">
-                <div class="row  main-chart">
+                <div class="row " id="main-chart">
                     <div class="col-12">
                         {{ embed(roots.main_chart) }}
                     </div>
                 </div>
-                <div class="row ranger">
+                <div class="row" id="ranger">
                     <div class="col-12">
                         {{ embed(roots.ranger) }}
                     </div>
                 </div>
-                <div class="row bars">
+                <div class="row" id="bars">
                     <div class="col-12">
                         {{ embed(roots.bars) }}
                     </div>
@@ -83,5 +84,6 @@
             </div>
         </div>
     </div>
+    <script src="dashboard/static/js/custom.js"></script>
 
 {% endblock %}
