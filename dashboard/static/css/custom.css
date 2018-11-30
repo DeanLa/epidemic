@@ -31,8 +31,9 @@ html, body {
 }
 
 .charts-col {
-    /*height: 90vh;*/
-    /*overflow: auto;*/
+    margin-top: 10px;
+    height: 90vh;
+    overflow: auto;
 }
 
 #controls {
