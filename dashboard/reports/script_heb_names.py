@@ -14,13 +14,8 @@ sess=Session()
 records = pd.read_csv('info.csv').fillna("").to_dict('records')
 
 base = "update diseases set disease_heb = '{disease_heb}', wiki_heb='{wiki_heb}', info_heb='{info_heb}' where id={id};"
-for record in records[:3]:
-    # for k, v in record.items():
-    #     if k == 'id':
-    #         continue
-    #     record[k] = v.replace("'", "")
+for record in records[:]:
     id_ = record.pop('id')
-    # q = base.format_map(record)
     q = (sa.update(Disease)
      .values(**record)
      .where(Disease.id==id_))
