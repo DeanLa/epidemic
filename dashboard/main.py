@@ -30,6 +30,9 @@ def update_plot(attrname, old_value, new_value):
     # Selector
     disease_selector.label = models.get_heb_name(disease)
 
+    # Smooth Tooltip
+    smooth_info.text=data_tooltip('הוראות נוספות', 'החלקה: {} שבועות'.format(smooth))
+
     # Bars
     src = models.get_disease_sums_by_name(disease)
     source_sums.data.update(src.data)
@@ -49,12 +52,13 @@ smooth = int(get_param('smooth', 2))
 ## Components
 
 # Widgets
-disease_info = Div(text=data_tooltip('More Instructions', 'Select Disease'), css_classes=['heb'])
+disease_info = Div(text=data_tooltip('הוראות נוספות', 'מחלה:'), css_classes=['heb'])
 disease_selector = Dropdown(label=models.get_heb_name(disease), value=disease, menu=list(zip(DISEASES_HEB, DISEASES)))
-smooth_selector = Slider(title='החלקה', value=int(smooth), start=1, step=1, end=8, css_classes=['heb'])
+smooth_info = Div(text=data_tooltip('הוראות נוספות', 'החלקה: {} שבועות'.format(smooth)), css_classes=['heb'])
+smooth_selector = Slider(title=None, value=int(smooth), start=1, step=1, end=8, css_classes=['heb'])
 heb_name = Div(text=disease_information(disease))
 # picker = RadioButtonGroup(labels=['Total Cases', 'Cases by Region'], width=300)
-control_list = widgetbox(disease_info, disease_selector, smooth_selector, heb_name)
+control_list = widgetbox(disease_info, disease_selector, smooth_info,smooth_selector, heb_name)
 controls = column(control_list, name='controls')
 
 # JS Callback
