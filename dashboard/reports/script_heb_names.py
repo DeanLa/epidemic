@@ -23,4 +23,4 @@ for record in records[:]:
          .values(**record)
          .where(Disease.id == id_))
     engine.execute(q)
-    print (f'updated {id_}: {record["disease"]}')
+    print (f'updated {id_}')
