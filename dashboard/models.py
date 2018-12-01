@@ -16,8 +16,9 @@ def normalize_name(s):
         ret = ret.replace(ch, '_')
     return ret
 
-
-disease_dict = (pd.read_csv(os.path.join(DATA_DIR, 'diseases2.csv'))
+diseases_q = 'select * from diseases'
+# disease_dict = (pd.read_csv(os.path.join(DATA_DIR, 'diseases2.csv'))
+disease_dict = (pd.read_sql(diseases_q, conn)
                 .assign(key=lambda x: x.disease.apply(normalize_name))
                 .set_index('key')
                 # .loc[:, 'id']
@@ -36,11 +37,12 @@ g = (pd.read_sql(group_by_q, conn)
      )
 
 DISEASES = sorted([v['disease'] for k, v in disease_dict.items() if v['id'] in g.index.values])
+DISEASES_HEB = sorted([v['disease_heb'] for k, v in disease_dict.items() if v['id'] in g.index.values])
 
 
 def get_heb_name(disease):
     disease = normalize_name(disease)
-    return disease_dict[disease]['heb']
+    return disease_dict[disease]['disease_heb']
 
 
 def get_disease_totals_by_name(name, smooth=2):

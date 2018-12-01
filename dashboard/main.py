@@ -10,9 +10,9 @@ from bokeh.models.widgets import Dropdown, RadioButtonGroup
 
 from dashboard import models
 from dashboard.config import DEFAULT_DISEASE
-from dashboard.models import DISEASES
+from dashboard.models import DISEASES, DISEASES_HEB
 from dashboard.plot import make_plot, make_range_plot, make_total_bars
-from dashboard.tools import make_range_tool,data_tooltip,disease_information
+from dashboard.tools import make_range_tool, data_tooltip, disease_information
 
 logger = logging.getLogger(__name__)
 
@@ -28,14 +28,14 @@ def update_plot(attrname, old_value, new_value):
     chart.title.text = f'{disease} | {heb}'
 
     # Selector
-    disease_selector.label = disease
+    disease_selector.label = models.get_heb_name(disease)
 
     # Bars
     src = models.get_disease_sums_by_name(disease)
     source_sums.data.update(src.data)
     bars.title.text = f'Annual amount by regions for {disease}'
 
-    heb_name.text=disease_information(disease)
+    heb_name.text = disease_information(disease)
     curdoc().title = "Epidemic - {}".format(disease)
     curdoc().template_variables.update(disease=disease)
 
@@ -49,9 +49,9 @@ smooth = int(get_param('smooth', 2))
 ## Components
 
 # Widgets
-disease_info = Div(text=data_tooltip('More Instructions', 'Select Disease`'))
-disease_selector = Dropdown(label=disease, value=disease, menu=list(zip(DISEASES, DISEASES)))
-smooth_selector = Slider(title='Smoothing', value=int(smooth), start=1, step=1, end=8)
+disease_info = Div(text=data_tooltip('More Instructions', 'Select Disease'), css_classes=['heb'])
+disease_selector = Dropdown(label=models.get_heb_name(disease), value=disease, menu=list(zip(DISEASES_HEB, DISEASES)))
+smooth_selector = Slider(title='החלקה', value=int(smooth), start=1, step=1, end=8, css_classes=['heb'])
 heb_name = Div(text=disease_information(disease))
 # picker = RadioButtonGroup(labels=['Total Cases', 'Cases by Region'], width=300)
 control_list = widgetbox(disease_info, disease_selector, smooth_selector, heb_name)

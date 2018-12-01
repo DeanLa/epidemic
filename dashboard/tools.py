@@ -27,10 +27,10 @@ def make_range_tool(chart):
 
 
 # Basic Divs
-def data_tooltip(hover='', inside='I'):
+def data_tooltip(hover='', inside=''):
     html = f'''<span data-toggle="tooltip" data-placement="top" title="{hover}">
-    <i class="fas fa-info-circle"></i>{inside}
-    </button>'''
+        <i class="fas fa-info-circle"></i>{inside}
+    </span>'''
     return html
 
 
@@ -41,5 +41,5 @@ def disease_information(disease):
     if info != '':
         html+=f'<p class="heb">{info}</p>'
     if wiki != '':
-        html+=f'<a href="{wiki}" class="heb">מידע נוסף</a>'
+        html+=f'<a href="{wiki}" target="_blank" class="heb">מידע נוסף</a>'
     return html
