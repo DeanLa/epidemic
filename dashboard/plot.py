@@ -18,7 +18,7 @@ def _make_times(min_date, max_date):
         min_date = max_date - pd.DateOffset(days=14)
     else:
         min_date = pd.to_datetime(min_date, unit='s').tz_localize('UTC')
-    min_date = min(min_date, max_date - pd.DateOffset(weeks=5))
+    min_date = min(min_date, max_date - pd.DateOffset(weeks=30))
 
     return min_date, max_date
 
