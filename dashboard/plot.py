@@ -4,61 +4,43 @@ from bokeh.plotting import figure
 from dashboard import tools
 from dashboard.models import get_heb_name
 from dashboard.tools import DEFAULT_TOOLS
-from dashboard.config import COLORS
-
-myReds = [
-    '#000000',
-    '#080000',
-    '#100000',
-    '#180000',
-    '#200000',
-    '#280000',
-    '#300000',
-    '#380000',
-    '#400000',
-    '#480000',
-    '#500000',
-    '#580000',
-    '#600000',
-    '#680000',
-    '#700000',
-    '#780000',
-    '#800000',
-    '#880000',
-    '#900000',
-    '#980000',
-    '#A00000',
-    '#A80000',
-    '#B00000',
-    '#B80000',
-    '#C00000',
-    '#C80000',
-    '#D00000',
-    '#D80000',
-    '#E00000',
-    '#E80000',
-    '#F00000',
-    '#F80000',
-    '#FF0000']
+from dashboard.config import COLORS, REGIONS
 
 
-def make_plot(source, disease):
+def _make_times(min_date, max_date):
     now = pd.Timestamp('now', tz='UTC')
+    if not max_date:
+        max_date = now
+    else:
+        max_date = pd.to_datetime(max_date, unit='s').tz_localize('UTC')
+    max_date = min(max_date, now - pd.DateOffset(weeks=2))
+    if not min_date:
+        min_date = max_date - pd.DateOffset(days=14)
+    else:
+        min_date = pd.to_datetime(min_date, unit='s').tz_localize('UTC')
+    min_date = min(min_date, max_date - pd.DateOffset(weeks=5))
+
+    return min_date, max_date
+
+
+def make_plot(source, disease, min_date, max_date):
+    min_date, max_date = _make_times(min_date, max_date)
     p = figure(
         tools=DEFAULT_TOOLS,
         x_axis_type='datetime',
-        x_range=(pd.Timestamp('2018-1-1'), now.date()),
+        x_range=(min_date, max_date),
         toolbar_location='above',
         name='main_chart'
 
     )
     p.toolbar.logo = None
+    p.toolbar_location = None
     p.background_fill_alpha = 1
     p.css_classes = ['bk-h-100']
     p.title.text = disease + ' | ' + get_heb_name(disease)
     p.title.text_font_size = '18pt'
-    l1 = p.line('date', 'total', source=source, line_width=0.5, line_dash='dashed', legend='Cases')
-    l2 = p.line('date', 'total_smooth', source=source, line_width=2, legend='Smoothed')
+    l1 = p.line('date', 'total', source=source, line_width=0.5, line_dash='dashed', legend='דיווחים')
+    l2 = p.line('date', 'total_smooth', source=source, line_width=2, legend='החלקה')
     l3 = p.line('date', 'total_smooth', source=source, line_width=0, line_alpha=0)
     hover = tools.make_hover_tool()
     p.add_tools(hover)
@@ -69,13 +51,47 @@ def make_plot(source, disease):
     return p
 
 
-def make_range_plot(source, range_tool):
+def make_split_plot(source, disease):
+    now = pd.Timestamp('now', tz='UTC')
+    p = figure(
+        tools=DEFAULT_TOOLS,
+        x_axis_type='datetime',
+        # x_range=(pd.Timestamp('2018-1-1'), now.date()),
+        toolbar_location='above',
+        name='main_chart_split'
+
+    )
+    p.toolbar.logo = None
+    p.toolbar_location = None
+    p.background_fill_alpha = 1
+    p.css_classes = ['bk-h-100']
+    p.title.text = disease + ' | ' + get_heb_name(disease)
+    p.title.text_font_size = '18pt'
+    for i, region in enumerate(REGIONS[::1]):
+        l = p.line('date', region, source=source,
+                   line_color=COLORS[i],
+                   line_width=5,
+                   legend=region.replace('_', ' ').capitalize())
+        hover = tools.make_split_hover_tool(region)
+        hover.renderers = [l]
+        p.add_tools(hover)
+    z = tools.make_zoom_tool()
+    p.add_tools(z)
+    p.legend.location = 'top_left'
+    p.legend.click_policy = 'hide'
+    # p.legend.orientation = "horizontal"
+    # p.legend.label_text_font_size = '4pt'
+    p.legend.label_height = 10
+    return p
+
+
+def make_range_plot(source, range_tool, name='ranger'):
     p = figure(title='Select the time period you would like to view',
                y_axis_type=None,
                x_axis_type='datetime',
                tools='', toolbar_location=None,
                background_fill_color="#efefef",
-               name='ranger'
+               name=name
                )
     p.css_classes = ['bk-h-100']
     p.line('date', 'total', source=source)

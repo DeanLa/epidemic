@@ -1,4 +1,5 @@
-from bokeh.models import HoverTool, RangeTool, PanTool
+from bokeh.models import HoverTool, RangeTool, WheelZoomTool
+
 from dashboard.models import get_heb_info_by_name, get_heb_name
 
 DEFAULT_TOOLS = 'save'
@@ -15,8 +16,17 @@ def make_hover_tool():
     return hover
 
 
-def make_pan_tool():
-    pan = PanTool()
+def make_split_hover_tool(col):
+    hover = HoverTool(tooltips=[(col, '@{}'.format(col))],
+                      formatters={'date': 'datetime'},
+                      line_policy='nearest',
+                      mode='vline',
+                      )
+    return hover
+
+
+def make_zoom_tool():
+    return WheelZoomTool()
 
 
 def make_range_tool(chart):
@@ -28,9 +38,9 @@ def make_range_tool(chart):
 
 # Basic Divs
 def data_tooltip(hover='', inside=''):
-    html = f'''<span data-toggle="tooltip" data-placement="top" title="{hover}">
-        <i class="fas fa-info-circle"></i> {inside}
-    </span>'''
+    html = f'''<div data-toggle="tooltip" title="{hover}">
+        <h4><i class="fas fa-info-circle"></i> {inside}</h4>
+    </div>'''
     return html
 
 
@@ -39,7 +49,7 @@ def disease_information(disease):
     html = f'''<h3 class="heb">{get_heb_name(disease)}</h3>
         <hr>'''
     if info != '':
-        html+=f'<p class="heb">{info}</p>'
+        html += f'<p class="heb">{info}</p>'
     if wiki != '':
-        html+=f'<div class="heb"><a href="{wiki}" target="_blank">מידע נוסף</a></div>'
+        html += f'<div class="heb"><a href="{wiki}" target="_blank">מידע נוסף</a></div>'
     return html

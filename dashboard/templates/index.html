@@ -18,8 +18,9 @@
             integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="dashboard/static/css/custom.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-{#    Open Graph#}
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+          integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    {#    Open Graph#}
     <meta property="og:image"
           content="https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Measles_virus.JPG/220px-Measles_virus.JPG">
     <meta property="og:url" content="http://www.epidemic.co.il">
@@ -32,39 +33,49 @@
     {#    navbar#}
     <nav class="navbar navbar-expand-md navbar-dark bg-primary">
         <a class="navbar-brand" href="#">Epidemic</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav" id="nav-list">
-                            <li class="nav-item active">
-                                <a class="nav-link" href="http://deanla.com">deanla.com<span class="sr-only">(current)</span></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="https://www.health.gov.il/UnitsOffice/HD/PH/epidemiology/Pages/epidemiology_report.aspx">דוחות משרד הבריאות</a>
-                            </li>
-                        </ul>
+            <ul class="navbar-nav" id="nav-list">
+                <li class="nav-item active">
+                    <a class="nav-link" href="http://deanla.com">deanla.com<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="https://www.health.gov.il/UnitsOffice/HD/PH/epidemiology/Pages/epidemiology_report.aspx">דוחות
+                        משרד הבריאות</a>
+                </li>
+            </ul>
         </div>
-{#        <span class="navbar-text">#}
-{#            <a href="http://deanla.com" target="_blank">deanla.com</a>#}
-{#        </span>#}
+        {#        <span class="navbar-text">#}
+        {#            <a href="http://deanla.com" target="_blank">deanla.com</a>#}
+        {#        </span>#}
     </nav>
     {#    #}
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-3 col-12 order-1 order-sm-2 controls-col">
                 <div class="row" id="controls">
+{#                    <div data-toggle="tooltip" title="Hooray!">Hover over me</div>#}
                     {{ embed(roots[0]) }}
                 </div>
             </div>
             <div class="col-sm-9 col-12 order-2 order-sm-1 charts-col">
-                <div class="row " id="main-chart">
-                    <div class="col-12">
-                        {{ embed(roots.main_chart) }}
+                <div class="main-chart">
+                    <div class="row " id="main-chart-total">
+                        <div class="col-12">
+                            {{ embed(roots.main_chart) }}
+                        </div>
+                    </div>
+                    <div class="row" id="main-chart-split">
+                        <div class="col-12">
+                            {{ embed(roots.main_chart_split) }}
+                        </div>
                     </div>
                 </div>
-                <div class="row" id="ranger">
+                <div class="row ranger" id="ranger-total">
                     <div class="col-12">
                         {{ embed(roots.ranger) }}
                     </div>
@@ -78,5 +89,17 @@
         </div>
     </div>
     <script src="dashboard/static/js/custom.js"></script>
+    <script>
+        $(document).ready(function () {
+            var p = {{ p }};
+            if (p == 1) {
+                $("#main-chart-total").hide();
+                $("#main-chart-split").show();
+            } else if (p == 0) {
+                $("#main-chart-total").show();
+                $("#main-chart-split").hide();
+            }
+        });
 
+    </script>
 {% endblock %}

@@ -2,7 +2,7 @@ import os
 from functools import lru_cache
 import pandas as pd
 from bokeh.models import ColumnDataSource
-from dashboard.config import DISEASE_MIN_CASES
+from dashboard.config import DISEASE_MIN_CASES, REGIONS
 import sqlalchemy as sa
 
 DATA_DIR = os.path.join(os.path.dirname(__file__), 'reports')
@@ -15,6 +15,7 @@ def normalize_name(s):
     for ch in [' ', '-', '/']:
         ret = ret.replace(ch, '_')
     return ret
+
 
 diseases_q = 'select * from diseases'
 # disease_dict = (pd.read_csv(os.path.join(DATA_DIR, 'diseases2.csv'))
@@ -38,6 +39,8 @@ g = (pd.read_sql(group_by_q, conn)
 
 DISEASES = sorted([v['disease'] for k, v in disease_dict.items() if v['id'] in g.index.values])
 DISEASES_HEB = sorted([v['disease_heb'] for k, v in disease_dict.items() if v['id'] in g.index.values])
+DISEASE_DROPDOWN = sorted(
+    [(v['disease_heb'], v['disease']) for k, v in disease_dict.items() if v['id'] in g.index.values])
 
 
 def get_heb_name(disease):
@@ -73,6 +76,34 @@ def _get_disease_totals(id_):
     return df
 
 
+def get_disease_split_by_name(name, smooth=2):
+    name = normalize_name(name)
+    id_ = disease_dict[name]['id']
+    return get_disease_split_by_id(id_, smooth)
+
+
+def get_disease_split_by_id(id_,smooth=2):
+    df = _get_disease_split(id_)
+    ret = (df
+           .sort_values(['date', 'disease_id'])
+           .assign(date=lambda x: x.date + pd.DateOffset(days=6))
+           .set_index('date')
+           .loc['2008':, :]
+           .loc[lambda df: df.disease_id == id_, REGIONS]
+           .resample('W').mean()
+           .rolling(smooth).mean()
+           )
+    cds = ColumnDataSource(data=ret)
+    return cds
+
+
+@lru_cache(maxsize=16)
+def _get_disease_split(id_):
+    cols = ','.join(REGIONS)
+    df = pd.read_sql(f'select date, disease_id, {cols} from reports where disease_id={id_}', conn)
+    return df
+
+
 def get_disease_sums_by_name(name):
     name = normalize_name(name)
     id_ = disease_dict[name]['id']
@@ -89,8 +120,7 @@ def get_disease_sums_by_id(id_):
 
 @lru_cache(maxsize=16)
 def _get_disease_sums(id_):
-    cols = ['afula', 'akko', 'ashqelon', 'beer_sheva', 'hasharon', 'hadera', 'haifa', 'jerusalem', 'kinneret',
-            'nazareth', 'petach_tiqwa', 'ramla', 'rehovot', 'tel_aviv', 'zefat', 'idf', 'total']
+    cols = REGIONS + ['total']
     sum_cols = [f'sum ({col}) as {col}' for col in cols]
     q = f'''select year, {','.join(sum_cols)}
     from reports

@@ -1,26 +1,36 @@
 html, body {
     height: 100%;
 }
+
 #nav-list {
     margin-left: 20px;
 }
+
 .heb {
     text-align: right;
     direction: rtl;
     unicode-bidi: embed;
 }
 
-.spacer {
-    margin-bottom: 10px;
+.charts-col {
+    margin-top: 10px;
+    height: 90vh;
+    overflow: auto;
 }
 
-#main-chart {
-    /*min-height: 600px;*/
+.main-chart {
     height: 70%;
-    /*background-color: steelblue;*/
 }
 
-#ranger {
+#main-chart-total {
+    height: 100%;
+}
+
+#main-chart-split {
+    height: 100%;
+}
+
+.ranger {
     min-height: 120px;
     height: 20%;
     /*background-color: indianred;*/
@@ -30,12 +40,6 @@ html, body {
     min-height: 120px;
     height: 50%;
     /*background-color: indianred;*/
-}
-
-.charts-col {
-    margin-top: 10px;
-    height: 90vh;
-    overflow: auto;
 }
 
 #controls {
@@ -50,4 +54,9 @@ html, body {
 
 .controls-col .bk-root, .controls-col .bk-widget-box {
     width: 100% !important;
+}
+
+.disease_selector ul {
+    max-height: 400px;
+    overflow: auto;
 }
