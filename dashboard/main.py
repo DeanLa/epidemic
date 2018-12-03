@@ -75,16 +75,14 @@ picker_info = Div(text=data_tooltip(smooth_selector_more, 'חלוקה'.format(sm
 
 db_label = 'להורדת CSV עם נתוני {}'
 download_button = Button(label=db_label.format(disease_selector.label), css_classes=['heb'], button_type='primary')
-download_button_info = Div(text=data_tooltip(smooth_selector_more, 'הורדת המידע למחשב'.format(smooth)), css_classes=['heb'])
-
+download_button_info = Div(text=data_tooltip(smooth_selector_more, 'הורדת המידע למחשב'.format(smooth)),
+                           css_classes=['heb'])
 control_list = widgetbox(disease_info, disease_selector,
-                         smooth_info, smooth_selector,
                          picker_info, picker,
-                         download_button_info,download_button,
+                         smooth_info, smooth_selector,
+                         download_button_info, download_button,
                          heb_info)
 controls = column(control_list, name='controls')
-
-js_toggle_split = CustomJS(args={'pick': picker}, code=read_js('toggle_split.js'))
 
 # Sources
 source_line = models.get_disease_totals_by_name(disease, smooth)
@@ -105,6 +103,7 @@ request = {'ds': disease_selector,
            'pick': picker,
            'xr': chart.x_range}
 js_history = CustomJS(args=request, code=read_js('history_push.js'))
+js_toggle_split = CustomJS(args={'pick': picker}, code=read_js('toggle_split.js'))
 
 # Events
 for selector in [disease_selector, smooth_selector]:
@@ -119,6 +118,7 @@ download_button.callback = CustomJS(args=dict(source=source_split,
                                                   disease_selector.value.lower().replace(' ', '_'))),
                                     code=read_js('save_data.js'))
 
+# Document
 for element in [controls, chart_range, chart, chart_split, bars]:
     element.sizing_mode = "stretch_both"
     curdoc().add_root(element)

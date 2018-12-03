@@ -4,12 +4,12 @@ var data = source.data;
 console.log(data);
 var filetext = cols.join().concat('\n');
 for (var i = 0; i < data['date'].length; i++) {
-    // var currRow = [
-    //     data['name'][i].toString(),
-    //     data['salary'][i].toString(),
-    //     data['years_experience'][i].toString().concat('\n')
-    // ];
+    var dt = new Date(data['date'][i]);
+    var dts = dt.getFullYear().toString() + '-' +
+        ("0" + (dt.getMonth() + 1)).slice(-2) + '-' +
+        ("0" + dt.getDate()).slice(-2);
     var currRow = cols.map(col => data[col][i].toString());
+    currRow[0] = dts;
     var joined = currRow.join().concat('\n');
     filetext = filetext.concat(joined);
 }
@@ -21,10 +21,10 @@ var blob = new Blob([filetext], {type: 'text/csv;charset=utf-8;'});
 if (navigator.msSaveBlob) {
     navigator.msSaveBlob(blob, filename);
 } else {
-    var link = document.createElement("a");
+    var link;
     link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
-    link.download = filename
+    link.download = filename;
     link.target = "_blank";
     link.style.visibility = 'hidden';
     link.dispatchEvent(new MouseEvent('click'))

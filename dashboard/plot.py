@@ -39,6 +39,7 @@ def make_plot(source, disease, min_date, max_date):
     p.css_classes = ['bk-h-100']
     p.title.text = disease + ' | ' + get_heb_name(disease)
     p.title.text_font_size = '18pt'
+    p.title.align='center'
     l1 = p.line('date', 'total', source=source, line_width=0.5, line_dash='dashed', legend='דיווחים')
     l2 = p.line('date', 'total_smooth', source=source, line_width=2, legend='החלקה')
     l3 = p.line('date', 'total_smooth', source=source, line_width=0, line_alpha=0)
