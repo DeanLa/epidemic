@@ -52,14 +52,11 @@ def make_plot(source, disease, min_date, max_date):
 
 
 def make_split_plot(source, disease):
-    now = pd.Timestamp('now', tz='UTC')
     p = figure(
         tools=DEFAULT_TOOLS,
         x_axis_type='datetime',
-        # x_range=(pd.Timestamp('2018-1-1'), now.date()),
         toolbar_location='above',
         name='main_chart_split'
-
     )
     p.toolbar.logo = None
     p.toolbar_location = None
@@ -67,8 +64,8 @@ def make_split_plot(source, disease):
     p.css_classes = ['bk-h-100']
     p.title.text = disease + ' | ' + get_heb_name(disease)
     p.title.text_font_size = '18pt'
-    for i, region in enumerate(REGIONS[::1]):
-        l = p.line('date', region, source=source,
+    for i, region in enumerate(REGIONS):
+        l = p.line('date', '{}_smooth'.format(region), source=source,
                    line_color=COLORS[i],
                    line_width=5,
                    legend=region.replace('_', ' ').capitalize())

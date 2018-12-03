@@ -82,17 +82,23 @@ def get_disease_split_by_name(name, smooth=2):
     return get_disease_split_by_id(id_, smooth)
 
 
-def get_disease_split_by_id(id_,smooth=2):
-    df = _get_disease_split(id_)
-    ret = (df
-           .sort_values(['date', 'disease_id'])
-           .assign(date=lambda x: x.date + pd.DateOffset(days=6))
-           .set_index('date')
-           .loc['2008':, :]
-           .loc[lambda df: df.disease_id == id_, REGIONS]
-           .resample('W').mean()
+def get_disease_split_by_id(id_, smooth=2):
+    df = (_get_disease_split(id_)
+          .sort_values(['date', 'disease_id'])
+          .assign(date=lambda x: x.date + pd.DateOffset(days=6))
+          .set_index('date')
+          .loc['2008':, :]
+          .loc[lambda df: df.disease_id == id_, :]
+          .resample('W').mean()
+          )
+    roll = (df
+            .drop(columns=['disease_id'])
            .rolling(smooth).mean()
+           .rename(columns=lambda x: x + '_smooth')
            )
+    ret = pd.concat((df,roll))
+
+    # Concat rolling and non rolling
     cds = ColumnDataSource(data=ret)
     return cds
 
@@ -100,7 +106,7 @@ def get_disease_split_by_id(id_,smooth=2):
 @lru_cache(maxsize=16)
 def _get_disease_split(id_):
     cols = ','.join(REGIONS)
-    df = pd.read_sql(f'select date, disease_id, {cols} from reports where disease_id={id_}', conn)
+    df = pd.read_sql(f'select date, disease_id, total, {cols} from reports where disease_id={id_}', conn)
     return df
 
 

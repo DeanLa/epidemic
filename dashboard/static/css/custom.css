@@ -46,6 +46,11 @@ html, body {
     /*height: 160px;*/
 }
 
+.picker {
+    margin-top: 15px !important;
+}
+
+/*---------------------------------------------------------------------*/
 .controls-col .bk-root > div {
     position: relative !important;
     width: 100% !important;

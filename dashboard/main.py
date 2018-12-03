@@ -1,12 +1,12 @@
 import logging
+import os
 
 import dotenv
 
 dotenv.load_dotenv()
 from bokeh.io import curdoc
 from bokeh.layouts import column, widgetbox
-from bokeh.models import Div, Slider, CustomJS
-from bokeh.models.widgets import Dropdown, RadioButtonGroup
+from bokeh.models import Div, Slider, CustomJS, Button, Dropdown, RadioButtonGroup, Spacer
 
 from dashboard import models
 from dashboard.config import DEFAULT_DISEASE, smooth_selector_more, disease_selector_more
@@ -15,6 +15,8 @@ from dashboard.plot import make_plot, make_range_plot, make_total_bars, make_spl
 from dashboard.tools import make_range_tool, data_tooltip, disease_information
 
 logger = logging.getLogger(__name__)
+
+read_js = lambda fn: open(os.path.join(os.path.dirname(__file__), 'static', 'js', fn)).read()
 
 
 def update_plot(attrname, old_value, new_value):
@@ -36,6 +38,8 @@ def update_plot(attrname, old_value, new_value):
     # Smooth Tooltip
     smooth_info.text = data_tooltip(smooth_selector_more, 'החלקה: {} שבועות'.format(smooth))
 
+    # Download Button
+    download_button.label = db_label.format(disease_selector.label)
     # Bars
     src = models.get_disease_sums_by_name(disease)
     source_sums.data.update(src.data)
@@ -65,21 +69,22 @@ disease_selector = Dropdown(label=models.get_heb_name(disease), value=disease, m
 smooth_info = Div(text=data_tooltip(smooth_selector_more, 'החלקה: {} שבועות'.format(smooth)), css_classes=['heb'])
 smooth_selector = Slider(title=None, value=int(smooth), start=1, step=1, end=8, css_classes=['heb'])
 heb_info = Div(text=disease_information(disease))
-picker = RadioButtonGroup(labels=['סה"כ דיווחים', 'חלוקה לפי נפות'], active=abs(chart_type - 1))
-# picker = RadioButtonGroup(labels=['A', 'B'], active=0)
-control_list = widgetbox(disease_info, disease_selector, smooth_info, smooth_selector, picker, heb_info)
+picker = RadioButtonGroup(labels=['סה"כ דיווחים', 'חלוקה לפי נפות'], active=abs(chart_type - 1),
+                          css_classes=['heb', 'w-100', 'picker'])
+picker_info = Div(text=data_tooltip(smooth_selector_more, 'חלוקה'.format(smooth)), css_classes=['heb'])
+
+db_label = 'להורדת CSV עם נתוני {}'
+download_button = Button(label=db_label.format(disease_selector.label), css_classes=['heb'], button_type='primary')
+download_button_info = Div(text=data_tooltip(smooth_selector_more, 'הורדת המידע למחשב'.format(smooth)), css_classes=['heb'])
+
+control_list = widgetbox(disease_info, disease_selector,
+                         smooth_info, smooth_selector,
+                         picker_info, picker,
+                         download_button_info,download_button,
+                         heb_info)
 controls = column(control_list, name='controls')
 
-js_toggle_split = CustomJS(args={'pick': picker}, code='''
-    var p = pick.active;
-    if (p==1) {
-        $( "#main-chart-total" ).hide();
-        $( "#main-chart-split" ).show();
-    } else if (p==0) {
-        $( "#main-chart-total" ).show();
-        $( "#main-chart-split" ).hide();
-    }
-''')
+js_toggle_split = CustomJS(args={'pick': picker}, code=read_js('toggle_split.js'))
 
 # Sources
 source_line = models.get_disease_totals_by_name(disease, smooth)
@@ -94,36 +99,25 @@ ranger = make_range_tool(chart)
 chart_range = make_range_plot(source_line, ranger)
 bars = make_total_bars(source_sums, disease)
 
-# Events
-# JS Callback
+# Callbacks
 request = {'ds': disease_selector,
            'ss': smooth_selector,
            'pick': picker,
            'xr': chart.x_range}
-code = '''
-var d=ds.value;
-var s=ss.value;
-var p=pick.active;
-var mind=Math.floor(parseInt(xr.start.toString())/1000);
-var maxd=Math.floor(parseInt(xr.end.toString())/1000);
-history.pushState({},
- 'Epidemic  - ' + d,
-  '/dashboard?disease=' + d + '&smooth=' + s + '&split=' + p +
-  '&min_date=' + mind + '&max_date=' + maxd
-  )
-'''
-js_history = CustomJS(args=request, code=code)
+js_history = CustomJS(args=request, code=read_js('history_push.js'))
+
+# Events
 for selector in [disease_selector, smooth_selector]:
     selector.on_change('value', update_plot)
-    selector.js_on_change('value', js_history)
+selector.js_on_change('value', js_history)
 picker.js_on_change('active', js_toggle_split)
 picker.js_on_change('active', js_history)
 picker.active = chart_type
 chart.x_range.callback = js_history
-#
-
-# controls.css_classes = ['cbk-controls']
-# charts_col = column(chart_range, chart)
+download_button.callback = CustomJS(args=dict(source=source_split,
+                                              save_path='epidemic_co_il_{}.csv'.format(
+                                                  disease_selector.value.lower().replace(' ', '_'))),
+                                    code=read_js('save_data.js'))
 
 for element in [controls, chart_range, chart, chart_split, bars]:
     element.sizing_mode = "stretch_both"
@@ -132,4 +126,4 @@ curdoc().title = "Epidemic"
 curdoc().template_variables.update(p=picker.active)
 if 'disease' in args.keys():
     curdoc().title = "Epidemic - {}".format(disease)
-    update_plot(None, None, None)
+update_plot(None, None, None)
