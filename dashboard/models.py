@@ -60,7 +60,7 @@ def get_disease_totals_by_id(id_, smooth=2):
            .sort_values(['date', 'disease_id'])
            .assign(date=lambda x: x.date + pd.DateOffset(days=6))
            .set_index('date')
-           .loc['2008':, :]
+           # .loc['2003':, :]
            .loc[lambda df: df.disease_id == id_, ['total']]
            .resample('W').mean()
            .assign(total_smooth=lambda x: x.total.rolling(smooth).mean())

@@ -1,5 +1,6 @@
 import pandas as pd
 from bokeh.plotting import figure
+from bokeh.models import LabelSet, Range1d, HoverTool
 
 from dashboard import tools
 from dashboard.models import get_heb_name
@@ -39,7 +40,7 @@ def make_plot(source, disease, min_date, max_date):
     p.css_classes = ['bk-h-100']
     p.title.text = disease + ' | ' + get_heb_name(disease)
     p.title.text_font_size = '18pt'
-    p.title.align='center'
+    p.title.align = 'center'
     l1 = p.line('date', 'total', source=source, line_width=0.5, line_dash='dashed', legend='דיווחים')
     l2 = p.line('date', 'total_smooth', source=source, line_width=2, legend='החלקה')
     l3 = p.line('date', 'total_smooth', source=source, line_width=0, line_alpha=0)
@@ -77,20 +78,22 @@ def make_split_plot(source, disease):
     p.add_tools(z)
     p.legend.location = 'top_left'
     p.legend.click_policy = 'hide'
-    # p.legend.orientation = "horizontal"
-    # p.legend.label_text_font_size = '4pt'
     p.legend.label_height = 10
     return p
 
 
 def make_range_plot(source, range_tool, name='ranger'):
-    p = figure(title='Select the time period you would like to view',
+    title = 'מבט רב שנתי - ניתן להזיז ולשנות את גודל השטח הכחול על מנת לשנות את ציר הזמן בגרף למעלה'
+    p = figure(title=title,
                y_axis_type=None,
                x_axis_type='datetime',
                tools='', toolbar_location=None,
                background_fill_color="#efefef",
                name=name
                )
+    p.title.align = 'right'
+    p.title.text_font_size = '14pt'
+
     p.css_classes = ['bk-h-100']
     p.line('date', 'total', source=source)
     p.ygrid.grid_line_color = None
@@ -101,12 +104,18 @@ def make_range_plot(source, range_tool, name='ranger'):
 
 def make_total_bars(source, disease):
     p = figure(toolbar_location=None,
-               tools='hover',
-               tooltips='$name: @$name Cases (of @Total)',
+               tools=[],
                name='bars')
     regions = sorted(list(set(source.data.keys()) - {'Year', 'Total', 'index'}))
-    p.vbar_stack(regions, x='Year', width=0.9, source=source, color=COLORS[:len(regions)])
-
+    p.vbar(top='Total', x='Year', width=0.9, source=source)
+    b = p.vbar_stack(regions, x='Year', width=0.9, source=source, color=COLORS[:len(regions)])
+    labels = LabelSet(x='Year', y='Total', text='Total', level='glyph', source=source, render_mode='canvas',
+                      x_offset=-13.5)
+    p.add_tools(HoverTool(renderers=b, tooltips='$name: @$name Cases (of @Total)'))
+    p.add_layout(labels)
     p.xgrid.grid_line_color = None
-    p.title.text = f'Annual amount by regions for {disease}'
+    p.title.text = f'כמות מקרים שנתית עבור {get_heb_name(disease)}'
+    p.title.align = 'right'
+    p.title.text_font_size = '14pt'
+    p.y_range.start=0
     return p

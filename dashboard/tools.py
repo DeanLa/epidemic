@@ -25,14 +25,19 @@ def make_split_hover_tool(col):
     return hover
 
 
+def make_bars_hover_tool():
+    hover = HoverTool()
+    return hover
+
+
 def make_zoom_tool():
     return WheelZoomTool()
 
 
 def make_range_tool(chart):
     ranger = RangeTool(x_range=chart.x_range)
-    ranger.overlay.fill_color = "navy"
-    ranger.overlay.fill_alpha = 0.2
+    ranger.overlay.fill_color = "steelblue"
+    ranger.overlay.fill_alpha = 0.3
     return ranger
 
 

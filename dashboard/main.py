@@ -43,7 +43,7 @@ def update_plot(attrname, old_value, new_value):
     # Bars
     src = models.get_disease_sums_by_name(disease)
     source_sums.data.update(src.data)
-    bars.title.text = f'Annual amount by regions for {disease}'
+    bars.title.text = f'כמות מקרים שנתית עבור {models.get_heb_name(disease)}'
 
     heb_info.text = disease_information(disease)
     curdoc().title = "Epidemic - {}".format(disease)
@@ -63,13 +63,13 @@ max_date = get_param('max_date', '')
 ## Components
 
 # Widgets
-disease_info = Div(text=data_tooltip(disease_selector_more, 'מחלה:'), css_classes=['heb'])
+disease_info = Div(text=data_tooltip(disease_selector_more, 'מחלה'), css_classes=['heb'])
 disease_selector = Dropdown(label=models.get_heb_name(disease), value=disease, menu=DISEASE_DROPDOWN,
                             css_classes=['heb', 'disease_selector'])
 smooth_info = Div(text=data_tooltip(smooth_selector_more, 'החלקה: {} שבועות'.format(smooth)), css_classes=['heb'])
 smooth_selector = Slider(title=None, value=int(smooth), start=1, step=1, end=8, css_classes=['heb'])
 heb_info = Div(text=disease_information(disease))
-picker = RadioButtonGroup(labels=['סה"כ דיווחים', 'חלוקה לפי נפות'], active=abs(chart_type - 1),
+picker = RadioButtonGroup(labels=['סה"כ דיווחים', 'חלוקה לפי איזורים'], active=abs(chart_type - 1),
                           css_classes=['heb', 'w-100', 'picker'])
 picker_info = Div(text=data_tooltip(smooth_selector_more, 'חלוקה'.format(smooth)), css_classes=['heb'])
 
@@ -108,7 +108,7 @@ js_toggle_split = CustomJS(args={'pick': picker}, code=read_js('toggle_split.js'
 # Events
 for selector in [disease_selector, smooth_selector]:
     selector.on_change('value', update_plot)
-selector.js_on_change('value', js_history)
+    selector.js_on_change('value', js_history)
 picker.js_on_change('active', js_toggle_split)
 picker.js_on_change('active', js_history)
 picker.active = chart_type

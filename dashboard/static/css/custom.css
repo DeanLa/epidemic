@@ -6,7 +6,7 @@ html, body {
     margin-left: 20px;
 }
 
-.heb {
+.heb, .heb > .alert {
     text-align: right;
     direction: rtl;
     unicode-bidi: embed;
