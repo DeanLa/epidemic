@@ -17,7 +17,7 @@ def make_hover_tool():
 
 
 def make_split_hover_tool(col):
-    hover = HoverTool(tooltips=[(col, '@{}'.format(col))],
+    hover = HoverTool(tooltips=[(col, '@{}_smooth'.format(col))],
                       formatters={'date': 'datetime'},
                       line_policy='nearest',
                       mode='vline',
@@ -42,9 +42,18 @@ def make_range_tool(chart):
 
 
 # Basic Divs
-def data_tooltip(hover='', inside=''):
-    html = f'''<div data-toggle="tooltip" title="{hover}">
-        <h4><i class="fas fa-info-circle"></i> {inside}</h4>
+# def data_tooltip(hover='', inside=''):
+#     html = f'''<div data-toggle="tooltip" title="{hover}">
+#         <h4><i class="fas fa-info-circle"></i> {inside}</h4>
+#     </div>'''
+#     return html
+# Basic Divs
+def data_tooltip(hover='', visible_text=''):
+    html = f'''<div class="c-tooltip">
+    <h4><i class="fas fa-info-circle"></i> {visible_text}</h4>
+        <span class="tooltiptext">
+            {hover}
+        </span>
     </div>'''
     return html
 

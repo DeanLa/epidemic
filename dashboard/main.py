@@ -9,7 +9,8 @@ from bokeh.layouts import column, widgetbox
 from bokeh.models import Div, Slider, CustomJS, Button, Dropdown, RadioButtonGroup, Spacer
 
 from dashboard import models
-from dashboard.config import DEFAULT_DISEASE, smooth_selector_more, disease_selector_more
+from dashboard.config import (DEFAULT_DISEASE, smooth_selector_more, disease_selector_more, download_button_more,
+                              picker_more)
 from dashboard.models import DISEASE_DROPDOWN
 from dashboard.plot import make_plot, make_range_plot, make_total_bars, make_split_plot
 from dashboard.tools import make_range_tool, data_tooltip, disease_information
@@ -43,11 +44,11 @@ def update_plot(attrname, old_value, new_value):
     # Bars
     src = models.get_disease_sums_by_name(disease)
     source_sums.data.update(src.data)
-    bars.title.text = f'כמות מקרים שנתית עבור {models.get_heb_name(disease)}'
 
     heb_info.text = disease_information(disease)
     curdoc().title = "Epidemic - {}".format(disease)
     curdoc().template_variables.update(disease=disease)
+    curdoc().template_variables.update(disease_heb=models.get_heb_name(disease))
 
 
 # request
@@ -69,13 +70,13 @@ disease_selector = Dropdown(label=models.get_heb_name(disease), value=disease, m
 smooth_info = Div(text=data_tooltip(smooth_selector_more, 'החלקה: {} שבועות'.format(smooth)), css_classes=['heb'])
 smooth_selector = Slider(title=None, value=int(smooth), start=1, step=1, end=8, css_classes=['heb'])
 heb_info = Div(text=disease_information(disease))
-picker = RadioButtonGroup(labels=['סה"כ דיווחים', 'חלוקה לפי איזורים'], active=abs(chart_type - 1),
+picker = RadioButtonGroup(labels=['סה"כ דיווחים', 'חלוקה לפי איזורים'], active=chart_type,
                           css_classes=['heb', 'w-100', 'picker'])
-picker_info = Div(text=data_tooltip(smooth_selector_more, 'חלוקה'.format(smooth)), css_classes=['heb'])
+picker_info = Div(text=data_tooltip(picker_more, 'חלוקה'.format(smooth)), css_classes=['heb'])
 
 db_label = 'להורדת CSV עם נתוני {}'
 download_button = Button(label=db_label.format(disease_selector.label), css_classes=['heb'], button_type='primary')
-download_button_info = Div(text=data_tooltip(smooth_selector_more, 'הורדת המידע למחשב'.format(smooth)),
+download_button_info = Div(text=data_tooltip(download_button_more, 'הורדת המידע למחשב'.format(smooth)),
                            css_classes=['heb'])
 control_list = widgetbox(disease_info, disease_selector,
                          picker_info, picker,
@@ -101,7 +102,8 @@ bars = make_total_bars(source_sums, disease)
 request = {'ds': disease_selector,
            'ss': smooth_selector,
            'pick': picker,
-           'xr': chart.x_range}
+           'xr': chart.x_range,
+           'translate':dict([(x[1], x[0]) for x in DISEASE_DROPDOWN])}
 js_history = CustomJS(args=request, code=read_js('history_push.js'))
 js_toggle_split = CustomJS(args={'pick': picker}, code=read_js('toggle_split.js'))
 

@@ -29,15 +29,16 @@ def make_plot(source, disease, min_date, max_date):
     p = figure(
         tools=DEFAULT_TOOLS,
         x_axis_type='datetime',
-        x_range=(min_date, max_date),
+        x_range=Range1d(start=min_date, end=max_date, bounds=(min_date, max_date)),
         toolbar_location='above',
         name='main_chart'
 
     )
+    p.y_range.start = 0
+    # p.x_range.bounds.end=pd.Timestamp('2019-01-01')
     p.toolbar.logo = None
     p.toolbar_location = None
     p.background_fill_alpha = 1
-    p.css_classes = ['bk-h-100']
     p.title.text = disease + ' | ' + get_heb_name(disease)
     p.title.text_font_size = '18pt'
     p.title.align = 'center'
@@ -55,11 +56,12 @@ def make_plot(source, disease, min_date, max_date):
 
 def make_split_plot(source, disease):
     p = figure(
-        tools=DEFAULT_TOOLS,
+        tools=['xwheel_zoom'],
         x_axis_type='datetime',
         toolbar_location='above',
         name='main_chart_split'
     )
+    p.y_range.start = 0
     p.toolbar.logo = None
     p.toolbar_location = None
     p.background_fill_alpha = 1
@@ -83,16 +85,12 @@ def make_split_plot(source, disease):
 
 
 def make_range_plot(source, range_tool, name='ranger'):
-    title = 'מבט רב שנתי - ניתן להזיז ולשנות את גודל השטח הכחול על מנת לשנות את ציר הזמן בגרף למעלה'
-    p = figure(title=title,
-               y_axis_type=None,
+    p = figure(y_axis_type=None,
                x_axis_type='datetime',
                tools='', toolbar_location=None,
                background_fill_color="#efefef",
                name=name
                )
-    p.title.align = 'right'
-    p.title.text_font_size = '14pt'
 
     p.css_classes = ['bk-h-100']
     p.line('date', 'total', source=source)
@@ -114,8 +112,8 @@ def make_total_bars(source, disease):
     p.add_tools(HoverTool(renderers=b, tooltips='$name: @$name Cases (of @Total)'))
     p.add_layout(labels)
     p.xgrid.grid_line_color = None
-    p.title.text = f'כמות מקרים שנתית עבור {get_heb_name(disease)}'
+    p.title.text = None
     p.title.align = 'right'
     p.title.text_font_size = '14pt'
-    p.y_range.start=0
+    p.y_range.start = 0
     return p

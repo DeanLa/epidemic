@@ -1,6 +1,20 @@
 {% extends base %}
 <!--Base end here -->
 {% block preamble %}
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-130447689-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'UA-130447689-1');
+    </script>
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
@@ -40,12 +54,12 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav" id="nav-list">
                 <li class="nav-item active">
-                    <a class="nav-link" href="http://deanla.com">deanla.com<span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="http://deanla.com" target="_blank">deanla.com<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link"
-                       href="https://www.health.gov.il/UnitsOffice/HD/PH/epidemiology/Pages/epidemiology_report.aspx">דוחות
-                        משרד הבריאות</a>
+                       href="https://www.health.gov.il/UnitsOffice/HD/PH/epidemiology/Pages/epidemiology_report.aspx"
+                       target="_blank">דוחות משרד הבריאות</a>
                 </li>
             </ul>
         </div>
@@ -58,7 +72,6 @@
         <div class="row">
             <div class="col-sm-3 col-12 order-1 order-sm-2 controls-col">
                 <div class="row" id="controls">
-{#                    <div data-toggle="tooltip" title="Hooray!">Hover over me</div>#}
                     {{ embed(roots[0]) }}
                 </div>
             </div>
@@ -75,9 +88,32 @@
                         </div>
                     </div>
                 </div>
+                <div class="row heb">
+                    <div class="c-tooltip">
+                        <h4 class="info">
+                            <i class="fas fa-info-circle"></i>
+                            מבט רב שנתי
+                        </h4>
+                        <span class="tooltiptext">
+                            ניתן להזיז ולשנות את גודל השטח הכחול על מנת לשנות את ציר הזמן בגרף למעלה
+                    </span>
+                    </div>
+                </div>
                 <div class="row ranger" id="ranger-total">
                     <div class="col-12">
                         {{ embed(roots.ranger) }}
+                    </div>
+                </div>
+                <div class="row heb">
+                    <div class="c-tooltip">
+                        <h4 class="info">
+                            <i class="fas fa-info-circle"></i>
+                            כמות מקרים שנתית -
+                            <span class="disease">{{ disease_heb }}</span>
+                        </h4>
+                        <span class="tooltiptext">
+                             בפילוח לאיזורים. ניתן לרחף מעל הצבעים השונים כדי לראות מספרים לכל איזור
+                    </span>
                     </div>
                 </div>
                 <div class="row" id="bars">
@@ -87,19 +123,18 @@
                 </div>
             </div>
         </div>
-    </div>
-    <script src="dashboard/static/js/custom.js"></script>
-    <script>
-        $(document).ready(function () {
-            var p = {{ p }};
-            if (p == 1) {
-                $("#main-chart-total").hide();
-                $("#main-chart-split").show();
-            } else if (p == 0) {
-                $("#main-chart-total").show();
-                $("#main-chart-split").hide();
-            }
-        });
+        <script src="dashboard/static/js/custom.js"></script>
+        <script>
+            $(document).ready(function () {
+                var p = {{ p }};
+                if (p == 1) {
+                    $("#main-chart-total").hide();
+                    $("#main-chart-split").show();
+                } else if (p == 0) {
+                    $("#main-chart-total").show();
+                    $("#main-chart-split").hide();
+                }
+            });
 
-    </script>
+        </script>
 {% endblock %}

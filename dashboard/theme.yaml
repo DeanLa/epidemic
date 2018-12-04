@@ -1,0 +1,6 @@
+attrs:
+  Plot:
+    min_border: 20
+
+  Grid:
+    grid_line_alpha: 0.5
