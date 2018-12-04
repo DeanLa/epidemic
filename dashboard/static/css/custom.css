@@ -53,6 +53,11 @@ html, body {
 h4.info {
     margin: 0 30px;
 }
+
+.green {
+    background-color: lawngreen;
+    /*background;*/
+}
 /*---------------------------------------------------------------------*/
 /*Tooltip*/
 .c-tooltip {
