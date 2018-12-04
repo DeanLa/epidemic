@@ -13,7 +13,7 @@ for (var i = 0; i < data['date'].length; i++) {
     var joined = currRow.join().concat('\n');
     filetext = filetext.concat(joined);
 }
-
+filetext = filetext.replace("NaN","");
 var filename = save_path;
 var blob = new Blob([filetext], {type: 'text/csv;charset=utf-8;'});
 //

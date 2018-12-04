@@ -87,7 +87,7 @@ def get_disease_split_by_id(id_, smooth=2):
           .sort_values(['date', 'disease_id'])
           .assign(date=lambda x: x.date + pd.DateOffset(days=6))
           .set_index('date')
-          .loc['2008':, :]
+          # .loc['2008':, :]
           .loc[lambda df: df.disease_id == id_, :]
           .resample('W').mean()
           )
@@ -96,7 +96,7 @@ def get_disease_split_by_id(id_, smooth=2):
            .rolling(smooth).mean()
            .rename(columns=lambda x: x + '_smooth')
            )
-    ret = pd.concat((df,roll))
+    ret = df.join(roll)
 
     # Concat rolling and non rolling
     cds = ColumnDataSource(data=ret)
