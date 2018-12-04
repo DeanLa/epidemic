@@ -16,5 +16,8 @@ history.pushState({},
 
 base_title = 'כמות מקרים שנתית - ';
 $(".disease").html(heb);
-console.log(translate);
-console.log(d);
+
+var l1 = "https://www.facebook.com/sharer/sharer.php?u=";
+var l2 = "%2F&amp;src=sdkpreparse";
+
+$("#u_0_1").attr("href",l1 + window.location.search + l2);
