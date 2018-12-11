@@ -8,7 +8,7 @@ Flask==1.0.2
 Flask-Migrate==2.3.0
 Flask-SQLAlchemy==2.3.2
 idna==2.7
--e git+git@github.com:DeanLa/imoh.git@76faedc5ef746848d32a47997315336d7891f6b9#egg=imoh
+-e git+http://github.com/DeanLa/imoh.git@76faedc5ef746848d32a47997315336d7891f6b9#egg=imoh
 itsdangerous==1.1.0
 Jinja2==2.10
 kiwisolver==1.0.1

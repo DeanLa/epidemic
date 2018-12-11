@@ -1,2 +1,2 @@
 # epidemic
-[epidemic](epidemic.co.il)
+[epidemic](http://www.epidemic.co.il)
