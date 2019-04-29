@@ -113,11 +113,11 @@
                 </div>
 
 
-{#                <div class="fb-share-button" data-href="http://epidemic.co.il/" data-layout="button" data-size="large"#}
-{#                     data-mobile-iframe="true"><a target="_blank"#}
-{#                                                  href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fepidemic.co.il%2F&amp;src=sdkpreparse"#}
-{#                                                  class="fb-xfbml-parse-ignore">Share</a>#}
-{#                </div>#}
+                {#                <div class="fb-share-button" data-href="http://epidemic.co.il/" data-layout="button" data-size="large"#}
+                {#                     data-mobile-iframe="true"><a target="_blank"#}
+                {#                                                  href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fepidemic.co.il%2F&amp;src=sdkpreparse"#}
+                {#                                                  class="fb-xfbml-parse-ignore">Share</a>#}
+                {#                </div>#}
             </div>
             <div class="col-sm-9 col-12 order-2 order-sm-1 charts-col">
                 <div class="main-chart">
@@ -167,18 +167,19 @@
                 </div>
             </div>
         </div>
-        <script src="dashboard/static/js/custom.js"></script>
-        <script>
-            $(document).ready(function () {
-                var p = {{ p }};
-                if (p == 1) {
-                    $("#main-chart-total").hide();
-                    $("#main-chart-split").show();
-                } else if (p == 0) {
-                    $("#main-chart-total").show();
-                    $("#main-chart-split").hide();
-                }
-            });
+    </div>
+    <script src="dashboard/static/js/custom.js"></script>
+    <script>
+        $(document).ready(function () {
+            var p = {{ p }};
+            if (p == 1) {
+                $("#main-chart-total").hide();
+                $("#main-chart-split").show();
+            } else if (p == 0) {
+                $("#main-chart-total").show();
+                $("#main-chart-split").hide();
+            }
+        });
 
-        </script>
+    </script>
 {% endblock %}
