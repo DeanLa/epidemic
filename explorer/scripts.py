@@ -37,9 +37,10 @@ def put_reports_in_db():
     try:
         _insert_df(df, Report)
     except Exception as e:
-        print (e)
+        print (type(e))
     click.echo('All disease are in DB')
     click.echo('Fixing HIV reports')
+    exit()
     hotfix_aids()
     click.echo('HIV fixed')
     db.session.commit()
