@@ -34,8 +34,10 @@ def put_diseases_in_db():
 def put_reports_in_db():
     path = os.environ['DATA_FILE']
     df = _load_reports_df(path)
-    print (df.shape);exit()
-    _insert_df(df, Report)
+    try:
+        _insert_df(df, Report)
+    except Exception as e:
+        print (e)
     click.echo('All disease are in DB')
     click.echo('Fixing HIV reports')
     hotfix_aids()
